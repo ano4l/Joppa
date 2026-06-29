@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:#F4F1EB;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  ::selection{background:#102694;color:#F4F1EB;}
+  a{text-decoration:none;color:inherit;}
+  input,textarea,select,button{font-family:'Archivo',sans-serif;}
+  @keyframes kb{from{transform:scale(1.0);}to{transform:scale(1.12);}}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+  ::-webkit-scrollbar{width:11px;}
+  ::-webkit-scrollbar-track{background:#EBE6DC;}
+  ::-webkit-scrollbar-thumb{background:#C7BCA8;border-radius:0;}
+</style>
+</helmet>
+
+<div style="font-family:'Archivo',sans-serif;color:#16192B;min-height:100vh;overflow-x:hidden;background:#F4F1EB;">
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="{{ waLink }}" target="_blank" rel="noopener" style="position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:120;display:flex;align-items:center;gap:9px;background:#16192B;color:#F4F1EB;padding:13px 19px;border-radius:100px;font-size:14px;font-weight:600;letter-spacing:0.01em;box-shadow:0 14px 34px rgba(28,26,22,0.28);animation:floaty 4s ease-in-out infinite;" style-hover="background:#102694;">
+    <span style="width:9px;height:9px;border-radius:50%;background:#7FB87F;box-shadow:0 0 0 0 rgba(127,184,127,0.6);"></span>
+    WhatsApp Us
+  </a>
+
+  <!-- HEADER -->
+  <header style="{{ headerStyle }}">
+    <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a onClick="{{ goHome }}" style="display:flex;align-items:center;cursor:pointer;height:100%;">
+        <img src="joppa-logo.png" alt="JOPPA Construction" style="height:48px;width:auto;display:block;">
+      </a>
+
+      <nav style="{{ navWrapStyle }}">
+        <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="5">
+          <a onClick="{{ link.onClick }}" style="position:relative;cursor:pointer;font-size:14.5px;font-weight:500;letter-spacing:0.01em;padding:6px 0;{{ link.style }}" style-hover="opacity:1;color:#102694;">
+            {{ link.label }}
+            <sc-if value="{{ link.active }}" hint-placeholder-val="{{ true }}">
+              <span style="position:absolute;left:0;right:0;bottom:-3px;height:2px;background:#102694;"></span>
+            </sc-if>
+          </a>
+        </sc-for>
+      </nav>
+
+      <div style="{{ headerRightStyle }}">
+        <a href="tel:+27785580981" style="display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;{{ logoColor }}" style-hover="color:#102694;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#102694;"></span>078 558 0981
+        </a>
+        <a onClick="{{ goContact }}" style="cursor:pointer;background:#102694;color:#F8F5EF;padding:12px 22px;font-size:14px;font-weight:600;letter-spacing:0.02em;" style-hover="background:#16192B;">Free Quote</a>
+      </div>
+
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" style="{{ burgerStyle }}">
+        <span style="display:block;width:24px;height:2px;background:currentColor;margin:5px 0;"></span>
+        <span style="display:block;width:24px;height:2px;background:currentColor;margin:5px 0;"></span>
+        <span style="display:block;width:24px;height:2px;background:currentColor;margin:5px 0;"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div style="{{ mobileMenuStyle }}">
+    <div style="display:flex;flex-direction:column;gap:4px;padding:96px clamp(28px,8vw,56px) 40px;">
+      <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="5">
+        <a onClick="{{ link.onClick }}" style="font-family:'Spectral',serif;font-size:34px;font-weight:400;color:#F4F1EB;padding:14px 0;border-bottom:1px solid rgba(244,241,235,0.12);cursor:pointer;">{{ link.label }}</a>
+      </sc-for>
+      <a href="tel:+27785580981" style="margin-top:30px;color:#4FC5F0;font-size:16px;font-weight:600;letter-spacing:0.04em;">CALL · 078 558 0981</a>
+      <a onClick="{{ goContact }}" style="margin-top:18px;background:#102694;color:#F8F5EF;padding:17px;text-align:center;font-weight:600;font-size:15px;letter-spacing:0.03em;cursor:pointer;">Get a Free Quote</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- ================= HOME ================= -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Home">
+
+      <!-- HERO -->
+      <section style="position:relative;min-height:clamp(620px,94vh,960px);display:flex;align-items:flex-end;overflow:hidden;background:#131A33;">
+        <div style="position:absolute;inset:0;background:#131A33;background-image:repeating-linear-gradient(135deg,rgba(244,241,235,0.04) 0,rgba(244,241,235,0.04) 1px,transparent 1px,transparent 13px);animation:kb 18s ease-out forwards;"></div>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(244,241,235,0.22);">hero · cape town residential home</div>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,17,36,0.55) 0%,rgba(13,17,36,0.25) 40%,rgba(13,17,36,0.85) 100%);"></div>
+        <div style="position:relative;width:100%;max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px) clamp(56px,8vw,110px);">
+          <div data-reveal style="max-width:880px;">
+            <div style="display:inline-flex;align-items:center;gap:11px;color:#00B9F2;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:26px;">
+              <span style="width:34px;height:1px;background:#102694;"></span>Since 2007 · Cape Town
+            </div>
+            <h1 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(42px,7vw,86px);line-height:1.02;letter-spacing:-0.015em;color:#F6F2EB;margin:0;">Building &amp; renovating homes with quiet excellence.</h1>
+            <p style="max-width:560px;color:rgba(244,241,235,0.78);font-size:clamp(16px,1.5vw,19px);line-height:1.7;margin:28px 0 0;">Residential construction specialists in Cape Town — delivering renovations, heritage restorations, waterproofing, painting and complete home improvement, built to last.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:40px;">
+              <a onClick="{{ goContact }}" style="cursor:pointer;background:#102694;color:#F8F5EF;padding:18px 32px;font-size:15px;font-weight:600;letter-spacing:0.02em;" style-hover="background:#F4F1EB;color:#16192B;">Get a Free Quote</a>
+              <a onClick="{{ goServices }}" style="cursor:pointer;border:1px solid rgba(244,241,235,0.4);color:#F4F1EB;padding:18px 32px;font-size:15px;font-weight:600;letter-spacing:0.02em;" style-hover="border-color:#F4F1EB;background:rgba(244,241,235,0.08);">View Our Services</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS -->
+      <section style="background:#16192B;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));">
+          <sc-for list="{{ stats }}" as="stat" hint-placeholder-count="4">
+            <div data-reveal style="padding:clamp(36px,5vw,64px) 18px;text-align:center;border-right:1px solid rgba(244,241,235,0.08);border-bottom:1px solid rgba(244,241,235,0.08);">
+              <div data-count="{{ stat.value }}" style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(40px,5vw,64px);line-height:1;color:#00B9F2;">{{ stat.value }}</div>
+              <div style="margin-top:14px;font-size:12.5px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(244,241,235,0.6);">{{ stat.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <!-- ABOUT TEASER -->
+      <section style="padding:clamp(72px,11vw,148px) 0;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(40px,6vw,90px);align-items:center;">
+          <div data-reveal style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#E7E1D6;background-image:repeating-linear-gradient(135deg,rgba(28,26,22,0.05) 0,rgba(28,26,22,0.05) 1px,transparent 1px,transparent 12px);">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9A9182;">heritage victorian · 4:5</div>
+            <div style="position:absolute;left:24px;bottom:24px;right:24px;background:#16192B;color:#F4F1EB;padding:22px 24px;">
+              <div style="font-family:'Spectral',serif;font-size:23px;line-height:1.2;">Two decades of<br>residential craft.</div>
+            </div>
+          </div>
+          <div data-reveal>
+            <div style="display:inline-flex;align-items:center;gap:11px;color:#102694;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:22px;"><span style="width:30px;height:1px;background:#102694;"></span>About JOPPA</div>
+            <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,4.2vw,50px);line-height:1.1;letter-spacing:-0.01em;margin:0 0 26px;color:#16192B;">Craftsmanship built on the kind of experience that can't be rushed.</h2>
+            <p style="color:#5A544A;font-size:clamp(15px,1.4vw,17.5px);line-height:1.78;margin:0 0 18px;">After 20 years in the construction industry working alongside his father, our founder combined a lifetime of hands-on experience with formal tertiary qualifications to establish JOPPA Construction in 2007.</p>
+            <p style="color:#5A544A;font-size:clamp(15px,1.4vw,17.5px);line-height:1.78;margin:0 0 18px;">Since then we've completed a wide range of residential projects — consistently exceeding expectations and delivering superior quality workmanship that homeowners recommend to their neighbours.</p>
+            <p style="color:#5A544A;font-size:clamp(15px,1.4vw,17.5px);line-height:1.78;margin:0 0 34px;">We specialise in new homes, renovations, painting, waterproofing and the restoration of heritage Victorian homes over 100 years old.</p>
+            <a onClick="{{ goAbout }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:11px;color:#16192B;font-weight:600;font-size:15px;border-bottom:2px solid #102694;padding-bottom:5px;" style-hover="gap:18px;color:#102694;">Our Story <span style="font-size:18px;">→</span></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section style="background:#EDE8DE;padding:clamp(72px,11vw,148px) 0;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+          <div data-reveal style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(40px,5vw,64px);">
+            <div style="max-width:640px;">
+              <div style="display:inline-flex;align-items:center;gap:11px;color:#102694;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:22px;"><span style="width:30px;height:1px;background:#102694;"></span>What We Do</div>
+              <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,4.2vw,50px);line-height:1.1;letter-spacing:-0.01em;margin:0;color:#16192B;">Premium residential services, end to end.</h2>
+            </div>
+            <a onClick="{{ goServices }}" style="cursor:pointer;color:#16192B;font-weight:600;font-size:15px;border-bottom:2px solid #102694;padding-bottom:5px;white-space:nowrap;" style-hover="color:#102694;">View All Services →</a>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1px;background:#D8D0C2;border:1px solid #D8D0C2;">
+            <sc-for list="{{ services }}" as="svc" hint-placeholder-count="8">
+              <div data-reveal style="background:#F4F1EB;padding:clamp(28px,3vw,40px) clamp(24px,2.5vw,34px);min-height:230px;display:flex;flex-direction:column;cursor:pointer;transition:background .3s;" style-hover="background:#16192B;color:#F4F1EB;">
+                <span style="font-family:'Spectral',serif;font-size:15px;color:#102694;font-weight:500;">{{ svc.n }}</span>
+                <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:22px;line-height:1.2;margin:18px 0 14px;">{{ svc.title }}</h3>
+                <p style="font-size:14.5px;line-height:1.65;color:#6B6457;margin:0;">{{ svc.desc }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY -->
+      <section style="padding:clamp(72px,11vw,148px) 0;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+          <div data-reveal style="max-width:660px;margin-bottom:clamp(40px,5vw,64px);">
+            <div style="display:inline-flex;align-items:center;gap:11px;color:#102694;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:22px;"><span style="width:30px;height:1px;background:#102694;"></span>Why JOPPA</div>
+            <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,4.2vw,50px);line-height:1.1;letter-spacing:-0.01em;margin:0;color:#16192B;">Cape Town homeowners trust our craft — and keep recommending it.</h2>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,3vw,48px);">
+            <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="6">
+              <div data-reveal style="border-top:1px solid #D8D0C2;padding-top:26px;">
+                <span style="font-family:'Spectral',serif;font-size:15px;color:#102694;">{{ r.n }}</span>
+                <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:21px;margin:14px 0 12px;color:#16192B;">{{ r.title }}</h3>
+                <p style="font-size:14.5px;line-height:1.7;color:#6B6457;margin:0;">{{ r.desc }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED PROJECTS -->
+      <section style="background:#131A33;padding:clamp(72px,11vw,148px) 0;color:#F4F1EB;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+          <div data-reveal style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(40px,5vw,64px);">
+            <div style="max-width:640px;">
+              <div style="display:inline-flex;align-items:center;gap:11px;color:#00B9F2;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:22px;"><span style="width:30px;height:1px;background:#102694;"></span>Featured Projects</div>
+              <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,4.2vw,50px);line-height:1.1;letter-spacing:-0.01em;margin:0;color:#F6F2EB;">Residential work we're proud of.</h2>
+            </div>
+            <a onClick="{{ goProjects }}" style="cursor:pointer;color:#F4F1EB;font-weight:600;font-size:15px;border-bottom:2px solid #102694;padding-bottom:5px;white-space:nowrap;" style-hover="color:#00B9F2;">Explore Portfolio →</a>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(18px,2vw,28px);">
+            <sc-for list="{{ homeProjects }}" as="p" hint-placeholder-count="6">
+              <div data-reveal onClick="{{ goProjects }}" style="cursor:pointer;">
+                <div style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#2C2823;background-image:repeating-linear-gradient(135deg,rgba(244,241,235,0.05) 0,rgba(244,241,235,0.05) 1px,transparent 1px,transparent 12px);">
+                  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(244,241,235,0.28);">{{ p.label }}</div>
+                </div>
+                <div style="padding:18px 2px 0;">
+                  <span style="font-size:11.5px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#00B9F2;">{{ p.cat }}</span>
+                  <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:20px;margin:9px 0 0;color:#F4F1EB;">{{ p.title }}</h3>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section style="padding:clamp(72px,11vw,148px) 0;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+          <div data-reveal style="max-width:640px;margin-bottom:clamp(40px,5vw,64px);">
+            <div style="display:inline-flex;align-items:center;gap:11px;color:#102694;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:22px;"><span style="width:30px;height:1px;background:#102694;"></span>Client Stories</div>
+            <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(30px,4.2vw,50px);line-height:1.1;letter-spacing:-0.01em;margin:0;color:#16192B;">What Cape Town homeowners say.</h2>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(20px,2vw,28px);">
+            <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="4">
+              <div data-reveal style="background:#FBFAF7;border:1px solid #E4DDD0;padding:clamp(30px,3vw,40px);display:flex;flex-direction:column;">
+                <span style="font-family:'Spectral',serif;font-size:54px;line-height:0.5;color:#9FD2EC;height:30px;">&ldquo;</span>
+                <p style="font-family:'Spectral',serif;font-size:clamp(17px,1.6vw,20px);line-height:1.55;color:#20243A;margin:14px 0 28px;flex:1;">{{ t.quote }}</p>
+                <div style="border-top:1px solid #E4DDD0;padding-top:18px;">
+                  <div style="font-weight:600;font-size:15px;color:#16192B;">{{ t.name }}</div>
+                  <div style="font-size:13px;color:#8A8275;margin-top:4px;">{{ t.place }} · {{ t.project }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <dc-import name="CtaBand" go-contact="{{ goContact }}" wa-link="{{ waLink }}" hint-size="100%,420px"></dc-import>
+    </div>
+    </sc-if>
+
+    <!-- ================= ABOUT ================= -->
+    <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="About">
+      <dc-import name="PageHero" eyebrow="About JOPPA" title="{{ aboutHeroTitle }}" subtitle="{{ aboutHeroSub }}" label="founder on site · 21:9" hint-size="100%,520px"></dc-import>
+
+      <section style="padding:clamp(64px,9vw,128px) 0;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(40px,6vw,90px);align-items:center;">
+          <div data-reveal>
+            <div style="display:inline-flex;align-items:center;gap:11px;color:#102694;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:22px;"><span style="width:30px;height:1px;background:#102694;"></span>Our Story</div>
+            <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(28px,3.8vw,46px);line-height:1.12;margin:0 0 26px;color:#16192B;">A family trade, refined into a residential specialist.</h2>
+            <p style="color:#5A544A;font-size:clamp(15px,1.4vw,17.5px);line-height:1.78;margin:0 0 18px;">JOPPA Construction began with two decades of hands-on building experience. Working alongside his father, our founder learned the trade the right way — on real sites, solving real problems — before pairing that knowledge with formal tertiary qualifications.</p>
+            <p style="color:#5A544A;font-size:clamp(15px,1.4vw,17.5px);line-height:1.78;margin:0 0 18px;">The company was established in 2007, and operates independently as a dedicated residential specialist. Every project carries the same standard: do it properly, finish it beautifully, and leave the homeowner glad they chose us.</p>
+            <p style="color:#5A544A;font-size:clamp(15px,1.4vw,17.5px);line-height:1.78;margin:0;">From new homes and full renovations to the careful restoration of heritage Victorians over a century old, our work speaks in finishes, not promises.</p>
+          </div>
+          <div data-reveal style="position:relative;aspect-ratio:4/5;background:#E7E1D6;background-image:repeating-linear-gradient(135deg,rgba(28,26,22,0.05) 0,rgba(28,26,22,0.05) 1px,transparent 1px,transparent 12px);">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9A9182;">founder portrait · 4:5</div>
+          </div>
+        </div>
+      </section>
+
+      <section style="background:#16192B;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));">
+          <sc-for list="{{ stats }}" as="stat" hint-placeholder-count="4">
+            <div data-reveal style="padding:clamp(36px,5vw,64px) 18px;text-align:center;border-right:1px solid rgba(244,241,235,0.08);border-bottom:1px solid rgba(244,241,235,0.08);">
+              <div data-count="{{ stat.value }}" style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(40px,5vw,64px);line-height:1;color:#00B9F2;">{{ stat.value }}</div>
+              <div style="margin-top:14px;font-size:12.5px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(244,241,235,0.6);">{{ stat.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="padding:clamp(64px,9vw,128px) 0;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+          <div data-reveal style="max-width:640px;margin-bottom:clamp(36px,4vw,56px);">
+            <div style="display:inline-flex;align-items:center;gap:11px;color:#102694;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:22px;"><span style="width:30px;height:1px;background:#102694;"></span>How We Work</div>
+            <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(28px,3.8vw,46px);line-height:1.12;margin:0;color:#16192B;">A clear process, from first call to final handover.</h2>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(24px,3vw,40px);">
+            <sc-for list="{{ processSteps }}" as="step" hint-placeholder-count="4">
+              <div data-reveal style="border-top:2px solid #16192B;padding-top:22px;">
+                <span style="font-family:'Spectral',serif;font-size:38px;color:#4FC5F0;font-weight:300;">{{ step.n }}</span>
+                <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:21px;margin:10px 0 12px;color:#16192B;">{{ step.title }}</h3>
+                <p style="font-size:14.5px;line-height:1.7;color:#6B6457;margin:0;">{{ step.desc }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section style="background:#EDE8DE;padding:clamp(64px,9vw,128px) 0;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+          <div data-reveal style="max-width:640px;margin-bottom:clamp(36px,4vw,56px);">
+            <div style="display:inline-flex;align-items:center;gap:11px;color:#102694;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:22px;"><span style="width:30px;height:1px;background:#102694;"></span>What Drives Us</div>
+            <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(28px,3.8vw,46px);line-height:1.12;margin:0;color:#16192B;">The standards behind every JOPPA project.</h2>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,3vw,48px);">
+            <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="6">
+              <div data-reveal style="border-top:1px solid #D8D0C2;padding-top:26px;">
+                <span style="font-family:'Spectral',serif;font-size:15px;color:#102694;">{{ r.n }}</span>
+                <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:21px;margin:14px 0 12px;color:#16192B;">{{ r.title }}</h3>
+                <p style="font-size:14.5px;line-height:1.7;color:#6B6457;margin:0;">{{ r.desc }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <dc-import name="CtaBand" go-contact="{{ goContact }}" wa-link="{{ waLink }}" hint-size="100%,420px"></dc-import>
+    </div>
+    </sc-if>
+
+    <!-- ================= SERVICES ================= -->
+    <sc-if value="{{ isServices }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Services">
+      <dc-import name="PageHero" eyebrow="What We Do" title="{{ servHeroTitle }}" subtitle="{{ servHeroSub }}" label="finished interior · 21:9" hint-size="100%,520px"></dc-import>
+
+      <section style="padding:clamp(56px,8vw,112px) 0 clamp(40px,5vw,72px);">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(24px,3vw,40px);">
+            <sc-for list="{{ servicesFull }}" as="svc" hint-placeholder-count="8">
+              <div data-reveal style="background:#FBFAF7;border:1px solid #E4DDD0;display:flex;flex-direction:column;">
+                <div style="position:relative;aspect-ratio:16/10;background:#E7E1D6;background-image:repeating-linear-gradient(135deg,rgba(28,26,22,0.05) 0,rgba(28,26,22,0.05) 1px,transparent 1px,transparent 12px);">
+                  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#9A9182;">{{ svc.label }}</div>
+                  <span style="position:absolute;top:16px;left:16px;background:#16192B;color:#00B9F2;font-family:'Spectral',serif;font-size:14px;padding:6px 12px;">{{ svc.n }}</span>
+                </div>
+                <div style="padding:clamp(26px,2.6vw,36px);display:flex;flex-direction:column;flex:1;">
+                  <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:24px;margin:0 0 14px;color:#16192B;">{{ svc.title }}</h3>
+                  <p style="font-size:14.5px;line-height:1.7;color:#6B6457;margin:0 0 22px;">{{ svc.desc }}</p>
+                  <div style="display:flex;flex-direction:column;gap:11px;margin-top:auto;">
+                    <sc-for list="{{ svc.points }}" as="pt" hint-placeholder-count="4">
+                      <div style="display:flex;align-items:center;gap:11px;font-size:13.5px;color:#20243A;">
+                        <span style="width:6px;height:6px;background:#102694;flex-shrink:0;transform:rotate(45deg);"></span>{{ pt }}
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section style="background:#131A33;padding:clamp(64px,9vw,128px) 0;color:#F4F1EB;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+          <div data-reveal style="max-width:640px;margin-bottom:clamp(36px,4vw,56px);">
+            <div style="display:inline-flex;align-items:center;gap:11px;color:#00B9F2;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:22px;"><span style="width:30px;height:1px;background:#102694;"></span>Our Process</div>
+            <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(28px,3.8vw,46px);line-height:1.12;margin:0;color:#F6F2EB;">How a JOPPA project comes together.</h2>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(24px,3vw,40px);">
+            <sc-for list="{{ processSteps }}" as="step" hint-placeholder-count="4">
+              <div data-reveal style="border-top:2px solid rgba(217,182,144,0.5);padding-top:22px;">
+                <span style="font-family:'Spectral',serif;font-size:38px;color:#00B9F2;font-weight:300;">{{ step.n }}</span>
+                <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:21px;margin:10px 0 12px;color:#F4F1EB;">{{ step.title }}</h3>
+                <p style="font-size:14.5px;line-height:1.7;color:rgba(244,241,235,0.65);margin:0;">{{ step.desc }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <dc-import name="CtaBand" go-contact="{{ goContact }}" wa-link="{{ waLink }}" hint-size="100%,420px"></dc-import>
+    </div>
+    </sc-if>
+
+    <!-- ================= PROJECTS ================= -->
+    <sc-if value="{{ isProjects }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Projects">
+      <dc-import name="PageHero" eyebrow="Selected Works" title="{{ projHeroTitle }}" subtitle="{{ projHeroSub }}" label="signature project · 21:9" hint-size="100%,520px"></dc-import>
+
+      <section style="padding:clamp(48px,7vw,96px) 0 clamp(64px,9vw,128px);">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+          <div data-reveal style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(36px,4vw,52px);">
+            <sc-for list="{{ filterCats }}" as="c" hint-placeholder-count="7">
+              <button onClick="{{ c.onClick }}" style="cursor:pointer;border:1px solid #16192B;padding:10px 20px;font-size:13.5px;font-weight:600;letter-spacing:0.02em;transition:all .25s;{{ c.style }}">{{ c.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:clamp(20px,2vw,30px);">
+            <sc-for list="{{ filteredProjects }}" as="p" hint-placeholder-count="6">
+              <div data-reveal style="background:#FBFAF7;border:1px solid #E4DDD0;cursor:pointer;transition:transform .35s,box-shadow .35s;" style-hover="transform:translateY(-6px);box-shadow:0 22px 44px rgba(28,26,22,0.14);">
+                <div style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#E7E1D6;background-image:repeating-linear-gradient(135deg,rgba(28,26,22,0.05) 0,rgba(28,26,22,0.05) 1px,transparent 1px,transparent 12px);">
+                  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#9A9182;">{{ p.label }}</div>
+                  <span style="position:absolute;top:14px;left:14px;background:#F4F1EB;color:#102694;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:6px 11px;">{{ p.cat }}</span>
+                </div>
+                <div style="padding:24px clamp(22px,2vw,28px) 26px;">
+                  <h3 style="font-family:'Spectral',serif;font-weight:500;font-size:22px;margin:0 0 12px;color:#16192B;">{{ p.title }}</h3>
+                  <p style="font-size:14px;line-height:1.65;color:#6B6457;margin:0 0 18px;">{{ p.desc }}</p>
+                  <div style="display:flex;gap:22px;border-top:1px solid #E4DDD0;padding-top:16px;">
+                    <div><div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#A39A8A;">Location</div><div style="font-size:14px;font-weight:600;color:#20243A;margin-top:3px;">{{ p.location }}</div></div>
+                    <div><div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#A39A8A;">Year</div><div style="font-size:14px;font-weight:600;color:#20243A;margin-top:3px;">{{ p.year }}</div></div>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div data-reveal style="margin-top:clamp(48px,6vw,80px);background:#EDE8DE;border:1px dashed #C2B6A2;padding:clamp(36px,5vw,64px);text-align:center;">
+            <div style="font-family:'Spectral',serif;font-size:clamp(22px,2.6vw,30px);color:#16192B;margin-bottom:12px;">More of the portfolio is on its way.</div>
+            <p style="max-width:520px;margin:0 auto 26px;color:#6B6457;font-size:15.5px;line-height:1.7;">High-value projects and full case studies are being added. Want to see work relevant to your home? We'll share examples directly.</p>
+            <a onClick="{{ goContact }}" style="cursor:pointer;display:inline-block;background:#16192B;color:#F4F1EB;padding:15px 30px;font-size:14.5px;font-weight:600;" style-hover="background:#102694;">Request Project Examples</a>
+          </div>
+        </div>
+      </section>
+
+      <dc-import name="CtaBand" go-contact="{{ goContact }}" wa-link="{{ waLink }}" hint-size="100%,420px"></dc-import>
+    </div>
+    </sc-if>
+
+    <!-- ================= CONTACT ================= -->
+    <sc-if value="{{ isContact }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Contact">
+      <dc-import name="PageHero" eyebrow="Get In Touch" title="{{ contactHeroTitle }}" subtitle="{{ contactHeroSub }}" label="completed home · 21:9" hint-size="100%,520px"></dc-import>
+
+      <section style="padding:clamp(56px,8vw,112px) 0;">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(40px,5vw,72px);align-items:start;">
+
+          <div data-reveal>
+            <h2 style="font-family:'Spectral',serif;font-weight:400;font-size:clamp(26px,3.4vw,40px);line-height:1.12;margin:0 0 14px;color:#16192B;">Request your free quote.</h2>
+            <p style="color:#6B6457;font-size:15.5px;line-height:1.7;margin:0 0 30px;">Tell us about your project and we'll get back to you with honest advice and a clear, no-obligation quote.</p>
+            <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#16192B;color:#F4F1EB;padding:34px;text-align:center;">
+                <div style="font-family:'Spectral',serif;font-size:26px;margin-bottom:10px;color:#00B9F2;">Thank you.</div>
+                <p style="color:rgba(244,241,235,0.75);font-size:15px;line-height:1.65;margin:0 0 22px;">Your request is ready to send. We'll respond promptly — usually the same working day.</p>
+                <a href="{{ waSubmitLink }}" target="_blank" rel="noopener" style="display:inline-block;background:#102694;color:#F8F5EF;padding:14px 26px;font-weight:600;font-size:14px;">Send via WhatsApp</a>
+              </div>
+            </sc-if>
+            <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+              <form onSubmit="{{ submitForm }}" style="display:flex;flex-direction:column;gap:18px;">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;">
+                  <label style="display:flex;flex-direction:column;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8A8275;">Name
+                    <input value="{{ form.name }}" onInput="{{ setName }}" required placeholder="Your name" style="border:1px solid #D8D0C2;background:#FBFAF7;padding:14px 15px;font-size:15px;color:#16192B;outline:none;" style-focus="border-color:#102694;">
+                  </label>
+                  <label style="display:flex;flex-direction:column;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8A8275;">Phone
+                    <input value="{{ form.phone }}" onInput="{{ setPhone }}" required placeholder="078 000 0000" style="border:1px solid #D8D0C2;background:#FBFAF7;padding:14px 15px;font-size:15px;color:#16192B;outline:none;" style-focus="border-color:#102694;">
+                  </label>
+                </div>
+                <label style="display:flex;flex-direction:column;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8A8275;">Email
+                  <input value="{{ form.email }}" onInput="{{ setEmail }}" type="email" placeholder="you@email.com" style="border:1px solid #D8D0C2;background:#FBFAF7;padding:14px 15px;font-size:15px;color:#16192B;outline:none;" style-focus="border-color:#102694;">
+                </label>
+                <label style="display:flex;flex-direction:column;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8A8275;">Project Type
+                  <select value="{{ form.service }}" onChange="{{ setService }}" style="border:1px solid #D8D0C2;background:#FBFAF7;padding:14px 15px;font-size:15px;color:#16192B;outline:none;" style-focus="border-color:#102694;">
+                    <option value="">Select a service</option>
+                    <option value="Bathroom Renovation">Bathroom Renovation</option>
+                    <option value="Residential Building">Residential Building</option>
+                    <option value="Home Renovation">Home Renovation</option>
+                    <option value="Painting">Painting</option>
+                    <option value="Waterproofing">Waterproofing</option>
+                    <option value="Heritage Restoration">Heritage Restoration</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </label>
+                <label style="display:flex;flex-direction:column;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8A8275;">Project Details
+                  <textarea value="{{ form.message }}" onInput="{{ setMessage }}" rows="4" placeholder="Tell us a little about your project…" style="border:1px solid #D8D0C2;background:#FBFAF7;padding:14px 15px;font-size:15px;color:#16192B;outline:none;resize:vertical;font-family:'Archivo',sans-serif;" style-focus="border-color:#102694;"></textarea>
+                </label>
+                <button type="submit" style="cursor:pointer;background:#102694;color:#F8F5EF;border:none;padding:17px;font-size:15px;font-weight:600;letter-spacing:0.02em;margin-top:4px;" style-hover="background:#16192B;">Request Free Quote</button>
+              </form>
+            </sc-if>
+          </div>
+
+          <div data-reveal style="background:#16192B;color:#F4F1EB;padding:clamp(32px,4vw,48px);">
+            <div style="display:inline-flex;align-items:center;gap:11px;color:#00B9F2;font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:28px;"><span style="width:30px;height:1px;background:#102694;"></span>Contact</div>
+            <sc-for list="{{ contactRows }}" as="row" hint-placeholder-count="4">
+              <div style="padding:20px 0;border-bottom:1px solid rgba(244,241,235,0.1);">
+                <div style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(244,241,235,0.5);margin-bottom:8px;">{{ row.label }}</div>
+                <div style="font-size:16.5px;line-height:1.55;color:#F4F1EB;">{{ row.value }}</div>
+              </div>
+            </sc-for>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;">
+              <a href="tel:+27785580981" style="flex:1;min-width:130px;text-align:center;border:1px solid rgba(244,241,235,0.35);color:#F4F1EB;padding:14px;font-weight:600;font-size:14px;" style-hover="background:rgba(244,241,235,0.08);">Call Now</a>
+              <a href="{{ waLink }}" target="_blank" rel="noopener" style="flex:1;min-width:130px;text-align:center;background:#102694;color:#F8F5EF;padding:14px;font-weight:600;font-size:14px;" style-hover="background:#1E3AC0;">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="padding:0 0 clamp(56px,8vw,112px);">
+        <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+          <div data-reveal style="position:relative;aspect-ratio:21/7;min-height:240px;background:#E7E1D6;background-image:repeating-linear-gradient(135deg,rgba(28,26,22,0.05) 0,rgba(28,26,22,0.05) 1px,transparent 1px,transparent 12px);">
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+              <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9A9182;">map · woodstock, cape town</span>
+              <span style="font-family:'Spectral',serif;font-size:20px;color:#5A544A;">18 Osborne Street, Zonnebloem</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background:#0D1124;color:rgba(244,241,235,0.72);padding:clamp(56px,8vw,96px) 0 32px;">
+    <div style="max-width:1340px;margin:0 auto;padding:0 clamp(20px,5vw,48px);">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(36px,4vw,56px);padding-bottom:clamp(40px,5vw,64px);border-bottom:1px solid rgba(244,241,235,0.1);">
+        <div style="grid-column:1/-1;max-width:380px;">
+          <div style="display:flex;align-items:center;gap:13px;margin-bottom:20px;">
+            <span style="width:42px;height:42px;border:1.5px solid #00B9F2;color:#00B9F2;display:flex;align-items:center;justify-content:center;font-family:'Spectral',serif;font-size:23px;flex-shrink:0;">J</span>
+            <span style="display:flex;flex-direction:column;line-height:1;">
+              <span style="font-family:'Spectral',serif;font-size:19px;font-weight:600;color:#F4F1EB;">JOPPA</span>
+              <span style="font-size:10px;font-weight:600;letter-spacing:0.34em;text-transform:uppercase;margin-top:3px;color:rgba(244,241,235,0.6);">Construction</span>
+            </span>
+          </div>
+          <p style="font-size:14.5px;line-height:1.7;margin:0;max-width:340px;">Trusted residential construction specialists in Cape Town since 2007. Renovations, restorations and complete home improvement — done properly.</p>
+        </div>
+        <div>
+          <div style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#00B9F2;margin-bottom:18px;">Quick Links</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="5">
+              <a onClick="{{ link.onClick }}" style="cursor:pointer;font-size:14.5px;" style-hover="color:#F4F1EB;">{{ link.label }}</a>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#00B9F2;margin-bottom:18px;">Specialties</div>
+          <div style="display:flex;flex-direction:column;gap:12px;font-size:14.5px;">
+            <span>Home Renovations</span><span>Bathroom Renovations</span><span>Heritage Restoration</span><span>Waterproofing</span><span>Residential Building</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#00B9F2;margin-bottom:18px;">Contact</div>
+          <div style="display:flex;flex-direction:column;gap:12px;font-size:14.5px;">
+            <a href="tel:+27785580981" style-hover="color:#F4F1EB;">078 558 0981</a>
+            <a href="mailto:info@joppaconstruction.com" style-hover="color:#F4F1EB;">info@joppaconstruction.com</a>
+            <span style="line-height:1.6;">18 Osborne Street, Zonnebloem,<br>Woodstock, Cape Town, 7505</span>
+            <span style="line-height:1.6;color:rgba(244,241,235,0.55);">Mon – Fri: Open 24 Hours<br>Sat – Sun: Closed</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;padding-top:26px;font-size:13px;color:rgba(244,241,235,0.5);">
+        <span>© 2026 JOPPA Construction. All rights reserved.</span>
+        <span>Residential Construction &amp; Renovation Specialists — Cape Town</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    route: 'home',
+    menuOpen: false,
+    vw: (typeof window !== 'undefined' ? window.innerWidth : 1280),
+    scrolled: false,
+    cat: 'All',
+    form: { name: '', email: '', phone: '', service: '', message: '' },
+    submitted: false
+  };
+
+  navLinksRaw = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'services', label: 'Services' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'contact', label: 'Contact' }
+  ];
+
+  stats = [
+    { value: '20+', label: 'Years Experience' },
+    { value: '2007', label: 'Operating Since' },
+    { value: '100%', label: 'Residential Focus' },
+    { value: 'Heritage', label: 'Restoration Experts' }
+  ];
+
+  services = [
+    { n: '01', title: 'Bathroom Renovations', desc: 'Premium bathroom transformations with quality finishes and expert plumbing.' },
+    { n: '02', title: 'Residential Building', desc: 'Bespoke new home construction built to the highest residential standards.' },
+    { n: '03', title: 'Home Renovations', desc: 'Complete home renovations that elevate space, light and lifestyle.' },
+    { n: '04', title: 'Interior & Exterior Painting', desc: 'Flawless painting using premium South African paints.' },
+    { n: '05', title: 'Waterproofing', desc: 'Long-lasting roof and wall waterproofing for Cape weather.' },
+    { n: '06', title: 'Flooring', desc: 'Hardwood, laminate, vinyl and tile flooring installed with precision.' },
+    { n: '07', title: 'Tiling', desc: 'Bathroom, kitchen and floor tiling with immaculate craftsmanship.' },
+    { n: '08', title: 'Plastering', desc: 'Smooth, durable plaster finishes for interior and exterior walls.' }
+  ];
+
+  servicesFull = [
+    { n: '01', title: 'Bathroom Renovations', label: 'bathroom · 16:10', desc: 'Full bathroom transformations — from layout and waterproofing to tiling, fittings and final finishes.', points: ['Custom layout & design', 'Waterproofing & plumbing', 'Tiling & stonework', 'Premium fittings'] },
+    { n: '02', title: 'Residential Building', label: 'new build · 16:10', desc: 'Bespoke new homes built to exacting residential standards, managed end to end.', points: ['New home construction', 'Extensions & additions', 'Structural work', 'Project management'] },
+    { n: '03', title: 'Home Renovations', label: 'renovation · 16:10', desc: 'Complete renovations that reshape how a home lives — light, flow and function.', points: ['Full-home renovations', 'Kitchen remodels', 'Open-plan conversions', 'Finishes & joinery'] },
+    { n: '04', title: 'Interior & Exterior Painting', label: 'painting · 16:10', desc: 'Flawless interior and exterior painting using premium South African paints.', points: ['Surface preparation', 'Interior & exterior', 'Premium coatings', 'Clean, tidy finish'] },
+    { n: '05', title: 'Waterproofing', label: 'waterproofing · 16:10', desc: 'Long-lasting roof and wall waterproofing engineered for Cape Town weather.', points: ['Roof waterproofing', 'Wall & balcony sealing', 'Damp solutions', 'Guaranteed work'] },
+    { n: '06', title: 'Flooring', label: 'flooring · 16:10', desc: 'Hardwood, laminate, vinyl and tile flooring installed with precision and care.', points: ['Hardwood & laminate', 'Vinyl & tile', 'Subfloor preparation', 'Seamless finishes'] },
+    { n: '07', title: 'Tiling', label: 'tiling · 16:10', desc: 'Bathroom, kitchen and floor tiling delivered with immaculate craftsmanship.', points: ['Floor & wall tiling', 'Mosaic & feature work', 'Waterproof systems', 'Precision setting'] },
+    { n: '08', title: 'Heritage & Plastering', label: 'heritage · 16:10', desc: 'Smooth plaster finishes plus careful restoration of Victorian homes over 100 years old.', points: ['Heritage restoration', 'Interior & exterior plaster', 'Period detailing', 'Conservation care'] }
+  ];
+
+  reasons = [
+    { n: '01', title: '20+ Years Experience', desc: 'Two decades of refined craftsmanship across Cape Town homes.' },
+    { n: '02', title: 'Quality Workmanship', desc: 'Every detail finished to the highest residential standards.' },
+    { n: '03', title: 'Personalised Service', desc: 'Direct, honest communication from quote to handover.' },
+    { n: '04', title: 'Heritage Specialists', desc: 'Trusted experts in restoring Victorian homes over 100 years old.' },
+    { n: '05', title: 'Reliable Delivery', desc: 'Projects delivered on time and within the agreed budget.' },
+    { n: '06', title: 'Local Cape Town Team', desc: 'A trusted local company homeowners recommend to neighbours.' }
+  ];
+
+  projects = [
+    { cat: 'Renovation', title: 'Modern Interior Renovation', location: 'Constantia', year: '2024', label: 'interior reno · 4:3', desc: 'A full interior reimagined for light, flow and contemporary living.' },
+    { cat: 'Restoration', title: 'Heritage Victorian Restoration', location: 'Woodstock', year: '2023', label: 'victorian · 4:3', desc: 'A 120-year-old Victorian restored with every original detail preserved.' },
+    { cat: 'Bathroom', title: 'Luxury Bathroom Transformation', location: 'Rondebosch', year: '2024', label: 'bathroom · 4:3', desc: 'A magazine-worthy bathroom — tiling, plumbing and fittings throughout.' },
+    { cat: 'Paving', title: 'Cobblestone Driveway', location: 'Newlands', year: '2023', label: 'paving · 4:3', desc: 'A hand-laid cobblestone driveway built for decades of use.' },
+    { cat: 'Waterproofing', title: 'Roof Waterproofing', location: 'Sea Point', year: '2024', label: 'waterproofing · 4:3', desc: 'Complete roof waterproofing that has held perfectly through Cape winters.' },
+    { cat: 'Painting', title: 'Full Interior Repaint', location: 'Claremont', year: '2023', label: 'painting · 4:3', desc: 'A crisp, premium repaint that transformed the feel of the whole home.' }
+  ];
+
+  testimonials = [
+    { quote: 'JOPPA renovated our entire kitchen and master bathroom. The craftsmanship is exceptional and the team was a pleasure to have in our home.', name: 'Sarah van der Merwe', place: 'Constantia', project: 'Full Home Renovation' },
+    { quote: 'Restoring our 120-year-old Victorian was daunting. JOPPA preserved every original detail while giving us a modern, comfortable home.', name: 'James & Olivia Patel', place: 'Woodstock', project: 'Heritage Restoration' },
+    { quote: 'From quote to handover, JOPPA delivered exactly what they promised. Waterproofing has held perfectly through two winters.', name: 'Michael Botha', place: 'Sea Point', project: 'Waterproofing & Painting' },
+    { quote: 'Our bathroom transformation looks like something from a magazine. They handled every detail — tiling, plumbing, fittings.', name: 'Lerato Ndlovu', place: 'Rondebosch', project: 'Bathroom Renovation' }
+  ];
+
+  processSteps = [
+    { n: '01', title: 'Consultation', desc: 'We visit, listen and understand your home, your goals and your budget.' },
+    { n: '02', title: 'Detailed Quote', desc: 'A clear, itemised quote with honest advice — no surprises, no pressure.' },
+    { n: '03', title: 'Construction', desc: 'Skilled, tidy on-site work with regular updates and quality at every stage.' },
+    { n: '04', title: 'Handover', desc: 'A final walkthrough and a finished home delivered to a standard you can feel.' }
+  ];
+
+  cats = ['All', 'Renovation', 'Restoration', 'Bathroom', 'Painting', 'Waterproofing', 'Paving'];
+
+  contactRows = [
+    { label: 'Phone', value: '078 558 0981' },
+    { label: 'Email', value: 'info@joppaconstruction.com' },
+    { label: 'Address', value: '18 Osborne Street, Zonnebloem, Woodstock, Cape Town, 7505' },
+    { label: 'Hours', value: 'Mon – Fri: Open 24 Hours · Sat – Sun: Closed' }
+  ];
+
+  waBase = 'https://wa.me/27785580981?text=';
+
+  componentDidMount() {
+    this._onHash = () => {
+      const h = (window.location.hash || '').replace('#', '');
+      if (this.navLinksRaw.some(l => l.id === h)) this.setState({ route: h });
+    };
+    this._onScroll = () => {
+      const s = window.scrollY > 30;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    this._onResize = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('hashchange', this._onHash);
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('resize', this._onResize);
+    this._onHash();
+    this.initReveals();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this._onHash);
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._onResize);
+    if (this._io) this._io.disconnect();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState) return;
+    if (prevState.route !== this.state.route) {
+      window.scrollTo(0, 0);
+      this.initReveals();
+    } else if (prevState.cat !== this.state.cat || prevState.submitted !== this.state.submitted) {
+      this.initReveals();
+    }
+  }
+
+  initReveals() {
+    if (this._io) this._io.disconnect();
+    if (typeof IntersectionObserver === 'undefined') return;
+    setTimeout(() => {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const el = e.target;
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+            const cnt = el.querySelector('[data-count]') || (el.hasAttribute('data-count') ? el : null);
+            if (cnt && !cnt._counted) { cnt._counted = true; this.animateCount(cnt); }
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      this._io = io;
+      const nodes = document.querySelectorAll('[data-reveal]');
+      let i = 0;
+      nodes.forEach((n) => {
+        if (n._revealed) return;
+        n._revealed = true;
+        n.style.opacity = '0';
+        n.style.transform = 'translateY(30px)';
+        n.style.transition = 'opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1)';
+        n.style.transitionDelay = (Math.min(i, 5) * 80) + 'ms';
+        i++;
+        io.observe(n);
+      });
+      document.querySelectorAll('[data-count]').forEach((c) => {
+        if (!c.closest('[data-reveal]')) io.observe(c);
+      });
+    }, 60);
+  }
+
+  animateCount(el) {
+    const raw = el.getAttribute('data-count') || el.textContent;
+    const m = String(raw).match(/^(\D*)(\d+)(\D*)$/);
+    if (!m) return;
+    const prefix = m[1], target = parseInt(m[2], 10), suffix = m[3];
+    if (target > 1000) return;
+    const dur = 1300, start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  nav(route) {
+    this.setState({ route, menuOpen: false });
+    if (history && history.replaceState) history.replaceState(null, '', '#' + route);
+  }
+
+  setField(k, v) { this.setState((s) => ({ form: Object.assign({}, s.form, { [k]: v }) })); }
+
+  buildWa() {
+    const f = this.state.form;
+    const txt = 'Hi JOPPA Construction, I would like a quote.%0A%0AName: ' + encodeURIComponent(f.name) +
+      '%0APhone: ' + encodeURIComponent(f.phone) +
+      '%0AEmail: ' + encodeURIComponent(f.email) +
+      '%0AService: ' + encodeURIComponent(f.service || 'Not specified') +
+      '%0ADetails: ' + encodeURIComponent(f.message);
+    return this.waBase + txt;
+  }
+
+  renderVals() {
+    const route = this.state.route;
+    const isMobile = this.state.vw < 880;
+    const accent = '#102694';
+
+    const headerStyle = 'position:fixed;top:0;left:0;right:0;z-index:100;height:74px;background:#F4F1EB;border-bottom:1px solid ' +
+      (this.state.scrolled ? 'rgba(16,38,148,0.16)' : 'rgba(22,25,43,0.07)') +
+      ';box-shadow:' + (this.state.scrolled ? '0 8px 30px rgba(22,25,43,0.08)' : 'none') + ';transition:box-shadow .4s,border-color .4s;';
+
+    const navLinks = this.navLinksRaw.map((l) => ({
+      id: l.id,
+      label: l.label,
+      active: l.id === route,
+      onClick: () => this.nav(l.id),
+      style: 'color:' + (l.id === route ? '#102694' : '#4A4F5E') + ';opacity:' + (l.id === route ? '1' : '0.92') + ';'
+    }));
+
+    const filterCats = this.cats.map((c) => ({
+      label: c,
+      active: c === this.state.cat,
+      onClick: () => this.setState({ cat: c }),
+      style: c === this.state.cat ? 'background:#102694;color:#F4F1EB;border-color:#102694;' : 'background:transparent;color:#16192B;'
+    }));
+
+    const filteredProjects = this.state.cat === 'All'
+      ? this.projects
+      : this.projects.filter((p) => p.cat === this.state.cat);
+
+    return {
+      // routing
+      isHome: route === 'home', isAbout: route === 'about', isServices: route === 'services',
+      isProjects: route === 'projects', isContact: route === 'contact',
+      goHome: () => this.nav('home'), goAbout: () => this.nav('about'),
+      goServices: () => this.nav('services'), goProjects: () => this.nav('projects'),
+      goContact: () => this.nav('contact'),
+
+      // header
+      headerStyle,
+      logoColor: 'color:#16192B;', logoSubColor: 'color:#8A8275;',
+      navWrapStyle: 'display:' + (isMobile ? 'none' : 'flex') + ';align-items:center;gap:clamp(20px,2.4vw,38px);',
+      headerRightStyle: 'display:' + (isMobile ? 'none' : 'flex') + ';align-items:center;gap:22px;',
+      burgerStyle: 'display:' + (isMobile ? 'block' : 'none') + ';background:none;border:none;cursor:pointer;color:#1C1A16;padding:6px;',
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      mobileMenuStyle: 'position:fixed;inset:0;z-index:110;background:#0D1124;transition:opacity .4s,transform .45s cubic-bezier(.22,1,.36,1);opacity:' +
+        (this.state.menuOpen ? '1' : '0') + ';transform:translateY(' + (this.state.menuOpen ? '0' : '-100%') + ');',
+
+      navLinks,
+      stats: this.stats, services: this.services, servicesFull: this.servicesFull,
+      reasons: this.reasons, homeProjects: this.projects, testimonials: this.testimonials,
+      processSteps: this.processSteps, contactRows: this.contactRows,
+      filterCats, filteredProjects,
+
+      // page hero copy
+      aboutHeroTitle: 'Two decades of craft, one residential standard.',
+      aboutHeroSub: 'The people, the experience and the principles behind Cape Town\u2019s trusted residential builder.',
+      servHeroTitle: 'Premium residential services, delivered properly.',
+      servHeroSub: 'From bathroom renovations to full heritage restorations \u2014 every service finished with meticulous craftsmanship.',
+      projHeroTitle: 'Residential work we\u2019re proud to put our name on.',
+      projHeroSub: 'A growing portfolio of renovations, restorations and high-value home projects across Cape Town.',
+      contactHeroTitle: 'Let\u2019s build something worth keeping.',
+      contactHeroSub: 'Get a free, no-obligation quote from Cape Town\u2019s trusted residential construction specialists.',
+
+      // links
+      waLink: this.waBase + 'Hi%20JOPPA%20Construction%2C%20I%27d%20like%20a%20quote%20for%20my%20home%20project.',
+      waSubmitLink: this.buildWa(),
+
+      // form
+      form: this.state.form,
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      setName: (e) => this.setField('name', e.target.value),
+      setEmail: (e) => this.setField('email', e.target.value),
+      setPhone: (e) => this.setField('phone', e.target.value),
+      setService: (e) => this.setField('service', e.target.value),
+      setMessage: (e) => this.setField('message', e.target.value),
+      submitForm: (e) => { e.preventDefault(); this.setState({ submitted: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
