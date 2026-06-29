@@ -112,6 +112,7 @@
 
   const projects = [
     {
+      id: 'tokai-home',
       cat: 'Builds',
       title: 'Tokai Three-Bedroom Home',
       homeTitle: 'Three-Bedroom Residential Home',
@@ -119,27 +120,63 @@
       year: '2024',
       image: asset('Tokai Project/tokai3bedroom1.png'),
       desc: 'A complete residential build finished with crisp masonry, garage detailing and clean exterior lines.',
-      count: '16 photos'
+      details: 'This project brings together the wider Tokai home package: exterior build work, garage finishing, kitchen surfaces and the final landscape edges that complete the property.',
+      highlights: ['Residential build', 'Garage detailing', 'Kitchen finishes', 'Exterior completion'],
+      images: [
+        asset('Tokai Project/tokai3bedroom1.png'),
+        asset('Tokai Project/tokai3bedroom2.png'),
+        asset('Tokai Project/tokai3bedroom3.png'),
+        asset('Tokai Project/1.png'),
+        asset('Tokai Project/2.png'),
+        asset('Tokai Project/3.png'),
+        asset('Tokai Project/4.png'),
+        asset('Tokai Project/4(Complete).jpg'),
+        asset('Tokai Project/5.png'),
+        asset('Tokai Project/6.png'),
+        asset('Tokai Project/garage1.png'),
+        asset('Tokai Project/garage2.png'),
+        asset('Tokai Project/kitchen1.png'),
+        asset('Tokai Project/kitchen2-tiling.png'),
+        asset('Tokai Project/kitchen3.png'),
+        asset('Tokai Project/landscapin1.png'),
+        asset('Tokai Project/landscaping2.png')
+      ]
     },
     {
+      id: 'victorian-repainting',
       cat: 'Heritage',
       title: 'Victorian House Repainting',
       location: 'Cape Town',
       year: '2023',
       image: asset('Victorian House Repainting/houserepainting2.png'),
       desc: 'Careful repainting and restoration work on an older home, with attention to period trim and surfaces.',
-      count: '4 photos'
+      details: 'A focused heritage repainting job where the priority was clean preparation, durable coating and a finish that respects the character of the older home.',
+      highlights: ['Heritage surfaces', 'Exterior repainting', 'Period detail care'],
+      images: [
+        asset('Victorian House Repainting/houserepainting2.png'),
+        asset('Victorian House Repainting/houserepainting1.png'),
+        asset('Victorian House Repainting/victorianhouserepainting1.png'),
+        asset('Victorian House Repainting/victorianhouserepainting2.png')
+      ]
     },
     {
+      id: 'rondebosch-pool-decking',
       cat: 'Outdoor Living',
       title: 'Rondebosch Pool Decking',
       location: 'Rondebosch',
       year: '2024',
       image: asset('Rondebosch Pool Decking/veranda3.png'),
       desc: 'Precision deck installation around a pool courtyard, moving from framing to a polished timber finish.',
-      count: '3 photos'
+      details: 'The deck was built to make the pool courtyard feel finished and usable, with neat board alignment, stable framing and a clean transition around the water.',
+      highlights: ['Pool surround', 'Timber decking', 'Outdoor living finish'],
+      images: [
+        asset('Rondebosch Pool Decking/veranda3.png'),
+        asset('Rondebosch Pool Decking/veranda1.png'),
+        asset('Rondebosch Pool Decking/veranda2.png')
+      ]
     },
     {
+      id: 'tokai-kitchen',
       cat: 'Interiors',
       title: 'Tokai Kitchen Renovation',
       homeTitle: 'Kitchen Renovation',
@@ -147,18 +184,34 @@
       year: '2024',
       image: asset('Tokai Project/kitchen3.png'),
       desc: 'A warm kitchen refresh with cabinetry, tiling and finished surfaces tuned for daily family use.',
-      count: '3 photos'
+      details: 'A practical kitchen upgrade centred on better daily use: tile work, cabinet lines and finished surfaces that feel warm without becoming busy.',
+      highlights: ['Kitchen tiling', 'Cabinet finishes', 'Family-use surfaces'],
+      images: [
+        asset('Tokai Project/kitchen3.png'),
+        asset('Tokai Project/kitchen2-tiling.png'),
+        asset('Tokai Project/kitchen1.png')
+      ]
     },
     {
+      id: 'rondebosch-fireplace',
       cat: 'Interiors',
       title: 'Rondebosch Fireplace Detail',
       location: 'Rondebosch',
       year: '2024',
       image: asset('Rondebosch Project/oven3.png'),
       desc: 'Interior feature work with a refined fireplace surround and tiled finish.',
-      count: '5 photos'
+      details: 'Interior detail work across the Rondebosch set, including stairing, fireplace finishing and site-to-finish transitions that give the room a stronger centrepiece.',
+      highlights: ['Fireplace surround', 'Stairing work', 'Interior detailing'],
+      images: [
+        asset('Rondebosch Project/oven3.png'),
+        asset('Rondebosch Project/fireplace1.png'),
+        asset('Rondebosch Project/3.png'),
+        asset('Rondebosch Project/Stairing1.png'),
+        asset('Rondebosch Project/Stairing2.png')
+      ]
     },
     {
+      id: 'tokai-landscaping',
       cat: 'Outdoor Living',
       title: 'Tokai Landscaping Works',
       homeTitle: 'Landscaping Works',
@@ -166,7 +219,12 @@
       year: '2024',
       image: asset('Tokai Project/landscaping2.png'),
       desc: 'Garden beds, edges and lawn detailing used to finish the exterior living space.',
-      count: '2 photos'
+      details: 'A compact landscaping finish that ties the home exterior together with tidy lawn edges, planting beds and clear outdoor circulation.',
+      highlights: ['Garden beds', 'Lawn finish', 'Exterior edges'],
+      images: [
+        asset('Tokai Project/landscaping2.png'),
+        asset('Tokai Project/landscapin1.png')
+      ]
     }
   ];
 
@@ -175,46 +233,25 @@
       title: 'Tokai Project',
       label: 'Build, interiors, exterior works',
       desc: 'A broad project set covering structural build stages, kitchen finishes, garage completion and landscaping.',
-      images: [
-        asset('Tokai Project/tokai3bedroom1.png'),
-        asset('Tokai Project/1.png'),
-        asset('Tokai Project/kitchen3.png'),
-        asset('Tokai Project/garage2.png'),
-        asset('Tokai Project/landscaping2.png')
-      ]
+      images: projects[0].images
     },
     {
       title: 'Rondebosch Project',
       label: 'Restoration and interior detail',
       desc: 'A compact set showing site work, stairing, fireplace detail and finished entrance landscaping.',
-      images: [
-        asset('Rondebosch Project/Stairing2.png'),
-        asset('Rondebosch Project/3.png'),
-        asset('Rondebosch Project/fireplace1.png'),
-        asset('Rondebosch Project/oven3.png'),
-        asset('Rondebosch Project/Stairing1.png')
-      ]
+      images: projects[4].images
     },
     {
       title: 'Rondebosch Pool Decking',
       label: 'Outdoor living',
       desc: 'Before-and-after decking images around the pool, from framing to finished boards.',
-      images: [
-        asset('Rondebosch Pool Decking/veranda3.png'),
-        asset('Rondebosch Pool Decking/veranda1.png'),
-        asset('Rondebosch Pool Decking/veranda2.png')
-      ]
+      images: projects[2].images
     },
     {
       title: 'Victorian House Repainting',
       label: 'Heritage painting',
       desc: 'Exterior and interior repainting work on a character home with delicate trim and period surfaces.',
-      images: [
-        asset('Victorian House Repainting/houserepainting2.png'),
-        asset('Victorian House Repainting/houserepainting1.png'),
-        asset('Victorian House Repainting/victorianhouserepainting1.png'),
-        asset('Victorian House Repainting/victorianhouserepainting2.png')
-      ]
+      images: projects[1].images
     }
   ];
 
@@ -263,7 +300,8 @@
     route: 'home',
     menuOpen: false,
     cat: 'All',
-    formSubmitted: false
+    formSubmitted: false,
+    expandedProject: 'tokai-home'
   };
 
   /* --------------------------------------------------------------------------
@@ -425,23 +463,47 @@
     const grid = document.getElementById('projects-grid');
     if (!grid) return;
     const filtered = state.cat === 'All' ? projects : projects.filter(p => p.cat === state.cat);
-    grid.innerHTML = filtered.map(p => `
-      <article class="project-showcase-card reveal" role="listitem" tabindex="0">
+    if (!filtered.some(p => p.id === state.expandedProject)) {
+      state.expandedProject = filtered[0] ? filtered[0].id : null;
+    }
+
+    grid.innerHTML = filtered.map(p => {
+      const images = p.images && p.images.length ? p.images : [p.image];
+      const expanded = p.id === state.expandedProject;
+      return `
+      <article class="project-showcase-card reveal ${expanded ? 'is-expanded' : ''}" role="listitem" tabindex="0" data-project-card="${escapeHtml(p.id)}" aria-expanded="${expanded}" aria-label="${escapeHtml(p.title)} project card">
         <div class="project-showcase-card__media">
-          <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)} in ${escapeHtml(p.location)}" loading="lazy" decoding="async" width="900" height="1200">
+          <img class="project-showcase-card__image" src="${escapeHtml(images[0])}" alt="${escapeHtml(p.title)} in ${escapeHtml(p.location)}" loading="lazy" decoding="async" width="900" height="1200">
         </div>
         <div class="project-showcase-card__shade" aria-hidden="true"></div>
-        <div class="project-showcase-card__body">
+        <div class="project-showcase-card__body" id="project-${escapeHtml(p.id)}-details">
           <div class="project-showcase-card__eyebrow">${escapeHtml(p.cat)} / ${escapeHtml(p.year)}</div>
           <h3 class="project-showcase-card__title">${escapeHtml(p.title)}</h3>
           <p class="project-showcase-card__text">${escapeHtml(p.desc)}</p>
+          <p class="project-showcase-card__details">${escapeHtml(p.details || p.desc)}</p>
+          <div class="project-showcase-card__chips" aria-label="${escapeHtml(p.title)} project highlights">
+            ${(p.highlights || []).map(item => `<span>${escapeHtml(item)}</span>`).join('')}
+          </div>
+          <div class="project-showcase-card__gallery" aria-label="${escapeHtml(p.title)} photos">
+            ${images.map((image, index) => `
+              <button class="project-showcase-card__thumb ${index === 0 ? 'active' : ''}" type="button" data-project-image="${escapeHtml(image)}" aria-label="Show ${escapeHtml(p.title)} photo ${index + 1}">
+                <img src="${escapeHtml(image)}" alt="${escapeHtml(p.title)} photo ${index + 1}" loading="lazy" decoding="async" width="140" height="105">
+              </button>
+            `).join('')}
+          </div>
+          <button class="project-showcase-card__toggle" type="button" data-project-toggle aria-controls="project-${escapeHtml(p.id)}-details" aria-expanded="${expanded}">
+            View project photos
+          </button>
           <div class="project-showcase-card__meta">
             <span>${escapeHtml(p.location)}</span>
-            <span>${escapeHtml(p.count || 'Project set')}</span>
+            <span>${images.length} photos</span>
           </div>
         </div>
       </article>
-    `).join('');
+    `;
+    }).join('');
+
+    bindProjectCards(grid);
   }
 
   function renderProjectCollections() {
@@ -449,7 +511,7 @@
     if (!grid) return;
     grid.innerHTML = projectCollections.map(collection => {
       const hero = collection.images[0];
-      const thumbs = collection.images.slice(1, 5);
+      const thumbs = collection.images.slice(1);
       return `
         <article class="project-collection reveal" role="listitem">
           <div class="project-collection__media">
@@ -468,6 +530,48 @@
         </article>
       `;
     }).join('');
+  }
+
+  function setExpandedProject(card, grid) {
+    const id = card.getAttribute('data-project-card');
+    state.expandedProject = id;
+
+    grid.querySelectorAll('[data-project-card]').forEach(item => {
+      const isExpanded = item === card;
+      item.classList.toggle('is-expanded', isExpanded);
+      item.setAttribute('aria-expanded', String(isExpanded));
+      const toggle = item.querySelector('[data-project-toggle]');
+      if (toggle) toggle.setAttribute('aria-expanded', String(isExpanded));
+    });
+  }
+
+  function bindProjectCards(grid) {
+    grid.querySelectorAll('[data-project-card]').forEach(card => {
+      card.addEventListener('mouseenter', () => setExpandedProject(card, grid));
+      card.addEventListener('focusin', () => setExpandedProject(card, grid));
+      card.addEventListener('click', event => {
+        if (event.target.closest('[data-project-image]')) return;
+        setExpandedProject(card, grid);
+      });
+      card.addEventListener('keydown', event => {
+        if (event.target !== card && !event.target.closest('[data-project-toggle]')) return;
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          setExpandedProject(card, grid);
+        }
+      });
+
+      card.querySelectorAll('[data-project-image]').forEach(button => {
+        button.addEventListener('click', event => {
+          event.stopPropagation();
+          setExpandedProject(card, grid);
+          const image = button.getAttribute('data-project-image');
+          const mainImage = card.querySelector('.project-showcase-card__image');
+          if (image && mainImage) mainImage.src = image;
+          card.querySelectorAll('[data-project-image]').forEach(item => item.classList.toggle('active', item === button));
+        });
+      });
+    });
   }
 
   /* --------------------------------------------------------------------------
@@ -523,13 +627,18 @@
     state.menuOpen = true;
     mobileMenu.classList.add('open');
     burger.setAttribute('aria-expanded', 'true');
+    burger.setAttribute('aria-label', 'Close menu');
+    document.body.classList.add('menu-open');
     document.body.style.overflow = 'hidden';
+    mobileMenuClose.focus({ preventScroll: true });
   }
 
   function closeMenu() {
     state.menuOpen = false;
     mobileMenu.classList.remove('open');
     burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Open menu');
+    document.body.classList.remove('menu-open');
     document.body.style.overflow = '';
   }
 
