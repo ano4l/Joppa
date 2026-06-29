@@ -632,7 +632,7 @@ h1, h2, h3, h4, h5, h6, p {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-6);
-  height: 76px;
+  height: 86px;
 }
 
 .header__logo {
@@ -642,14 +642,15 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .header__logo img {
-  height: 46px;
-  width: auto;
+  width: clamp(112px, 10vw, 136px);
+  height: auto;
+  max-height: 76px;
   filter: none;
-  transition: height var(--transition-slow);
+  transition: width var(--transition-slow);
 }
 
 .header--scrolled .header__logo img {
-  height: 40px;
+  width: clamp(104px, 9vw, 124px);
 }
 
 .nav {
@@ -756,7 +757,11 @@ h1, h2, h3, h4, h5, h6, p {
   }
 
   .header__main {
-    height: 76px;
+    height: 78px;
+  }
+
+  .header__logo img {
+    width: 116px;
   }
 }
 

@@ -15,7 +15,8 @@
       n: '01',
       title: 'Bathroom Renovations',
       desc: 'Premium bathroom transformations with quality finishes and expert plumbing.',
-      image: asset('Tokai Project/kitchen2-tiling.png'),
+      image: asset('bathroom-renovation-service.png'),
+      imagePosition: 'center center',
       full: {
         desc: 'Full bathroom transformations — from layout and waterproofing to tiling, fittings and final finishes.',
         points: ['Custom layout & design', 'Waterproofing & plumbing', 'Tiling & stonework', 'Premium fittings']
@@ -25,7 +26,8 @@
       n: '02',
       title: 'Residential Building',
       desc: 'Bespoke new home construction built to the highest residential standards.',
-      image: asset('Tokai Project/1.png'),
+      image: asset('service-crops/residential-building.png'),
+      imagePosition: 'center center',
       full: {
         desc: 'Bespoke new homes built to exacting residential standards, managed end to end.',
         points: ['New home construction', 'Extensions & additions', 'Structural work', 'Project management']
@@ -35,7 +37,8 @@
       n: '03',
       title: 'Home Renovations',
       desc: 'Complete home renovations that elevate space, light and lifestyle.',
-      image: asset('Tokai Project/kitchen3.png'),
+      image: asset('service-crops/home-renovations.png'),
+      imagePosition: 'center center',
       full: {
         desc: 'Complete renovations that reshape how a home lives — light, flow and function.',
         points: ['Full-home renovations', 'Kitchen remodels', 'Open-plan conversions', 'Finishes & joinery']
@@ -45,7 +48,8 @@
       n: '04',
       title: 'Interior & Exterior Painting',
       desc: 'Flawless painting using premium South African paints.',
-      image: asset('Victorian House Repainting/victorianhouserepainting2.png'),
+      image: asset('service-crops/interior-exterior-painting.png'),
+      imagePosition: 'center center',
       full: {
         desc: 'Flawless interior and exterior painting using premium South African paints.',
         points: ['Surface preparation', 'Interior & exterior', 'Premium coatings', 'Clean, tidy finish']
@@ -55,7 +59,8 @@
       n: '05',
       title: 'Waterproofing',
       desc: 'Long-lasting roof and wall waterproofing for Cape weather.',
-      image: asset('Tokai Project/5.png'),
+      image: asset('service-crops/waterproofing.png'),
+      imagePosition: 'center center',
       full: {
         desc: 'Long-lasting roof and wall waterproofing engineered for Cape Town weather.',
         points: ['Roof waterproofing', 'Wall & balcony sealing', 'Damp solutions', 'Guaranteed work']
@@ -65,7 +70,8 @@
       n: '06',
       title: 'Flooring',
       desc: 'Hardwood, laminate, vinyl and tile flooring installed with precision.',
-      image: asset('Rondebosch Pool Decking/veranda2.png'),
+      image: asset('service-crops/flooring.png'),
+      imagePosition: 'center center',
       full: {
         desc: 'Hardwood, laminate, vinyl and tile flooring installed with precision and care.',
         points: ['Hardwood & laminate', 'Vinyl & tile', 'Subfloor preparation', 'Seamless finishes']
@@ -75,7 +81,8 @@
       n: '07',
       title: 'Tiling',
       desc: 'Bathroom, kitchen and floor tiling with immaculate craftsmanship.',
-      image: asset('Tokai Project/kitchen1.png'),
+      image: asset('service-crops/tiling.png'),
+      imagePosition: 'center center',
       full: {
         desc: 'Bathroom, kitchen and floor tiling delivered with immaculate craftsmanship.',
         points: ['Floor & wall tiling', 'Mosaic & feature work', 'Waterproof systems', 'Precision setting']
@@ -83,12 +90,13 @@
     },
     {
       n: '08',
-      title: 'Heritage & Plastering',
-      desc: 'Smooth plaster finishes plus careful restoration of Victorian homes.',
-      image: asset('Victorian House Repainting/houserepainting1.png'),
+      title: 'Full Exterior Painting',
+      desc: 'Complete exterior repainting with proper prep, coating and finishing.',
+      image: asset('service-crops/full-exterior-painting.png'),
+      imagePosition: 'center center',
       full: {
-        desc: 'Smooth plaster finishes plus careful restoration of Victorian homes over 100 years old.',
-        points: ['Heritage restoration', 'Interior & exterior plaster', 'Period detailing', 'Conservation care']
+        desc: 'Full exterior painting for homes that need careful surface prep, durable coatings and a clean final finish.',
+        points: ['Surface washing & prep', 'Crack repair & filling', 'Exterior wall coatings', 'Trim & detail painting']
       }
     }
   ];
@@ -106,6 +114,7 @@
     {
       cat: 'Builds',
       title: 'Tokai Three-Bedroom Home',
+      homeTitle: 'Three-Bedroom Residential Home',
       location: 'Tokai',
       year: '2024',
       image: asset('Tokai Project/tokai3bedroom1.png'),
@@ -133,6 +142,7 @@
     {
       cat: 'Interiors',
       title: 'Tokai Kitchen Renovation',
+      homeTitle: 'Kitchen Renovation',
       location: 'Tokai',
       year: '2024',
       image: asset('Tokai Project/kitchen3.png'),
@@ -151,6 +161,7 @@
     {
       cat: 'Outdoor Living',
       title: 'Tokai Landscaping Works',
+      homeTitle: 'Landscaping Works',
       location: 'Tokai',
       year: '2024',
       image: asset('Tokai Project/landscaping2.png'),
@@ -320,12 +331,12 @@
     grid.innerHTML = projects.slice(0, 6).map(p => `
       <article class="card reveal" role="listitem">
         <div class="card__media">
-          <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)} in ${escapeHtml(p.location)}" loading="lazy" decoding="async" width="600" height="450">
+          <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.homeTitle || p.title)} project by JOPPA Construction" loading="lazy" decoding="async" width="600" height="450">
           <span class="card__media-tag">${escapeHtml(p.cat)}</span>
         </div>
         <div class="card__body">
           <span class="text-xs text-uppercase text-accent mb-2">${escapeHtml(p.cat)}</span>
-          <h3 class="card__title">${escapeHtml(p.title)}</h3>
+          <h3 class="card__title">${escapeHtml(p.homeTitle || p.title)}</h3>
           <p class="card__text">${escapeHtml(p.desc)}</p>
         </div>
       </article>
@@ -365,7 +376,7 @@
     grid.innerHTML = services.map(s => `
       <article class="service-card-full reveal" role="listitem">
         <div class="service-card-full__media">
-          <img src="${escapeHtml(s.image)}" alt="${escapeHtml(s.title)}" loading="lazy" decoding="async" width="800" height="500">
+          <img src="${escapeHtml(s.image)}" alt="${escapeHtml(s.title)}" loading="lazy" decoding="async" width="800" height="500" style="object-position: ${escapeHtml(s.imagePosition || 'center center')};">
           <span class="service-card-full__num">${escapeHtml(s.n)}</span>
         </div>
         <div class="service-card-full__body">
