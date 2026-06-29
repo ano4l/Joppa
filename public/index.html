@@ -35,7 +35,7 @@
   <!-- Preconnect & fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Spectral:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Arvo:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/main.css">
@@ -121,7 +121,18 @@
 
   <!-- Header -->
   <header class="header" id="header" role="banner">
-    <div class="container header__container">
+    <!-- Top utility bar -->
+    <div class="header__topbar">
+      <div class="container header__topbar-inner">
+        <a href="mailto:info@joppaconstruction.com" class="header__topbar-link">info@joppaconstruction.com</a>
+        <span class="header__topbar-divider" aria-hidden="true"></span>
+        <a href="tel:+27785580981" class="header__topbar-link">078 558 0981</a>
+        <span class="header__topbar-divider" aria-hidden="true"></span>
+        <span class="header__topbar-link" style="pointer-events:none;">Mon – Fri &middot; Open 24 Hours</span>
+      </div>
+    </div>
+    <!-- Main header bar -->
+    <div class="container header__main">
       <a href="#home" class="header__logo" aria-label="JOPPA Construction — Home">
         <img src="assets/joppa-logo.png" alt="JOPPA Construction logo" width="180" height="48">
       </a>
@@ -169,7 +180,7 @@
     <section class="page" id="home" data-page="home" aria-label="Home">
       <!-- Hero -->
       <div class="hero">
-        <div class="hero__bg" role="img" aria-label="Completed Tokai residential home exterior by JOPPA Construction" style="background-image: url('assets/Tokai Project/tokai3bedroom1.png');"></div>
+        <div class="hero__bg" role="img" aria-label="Completed Tokai residential home exterior by JOPPA Construction" style="background-image: url('assets/Tokai%20Project/tokai3bedroom1.png');"></div>
         <div class="hero__texture" aria-hidden="true"></div>
         <div class="hero__overlay" aria-hidden="true"></div>
         <div class="hero__content container">
@@ -216,7 +227,7 @@
           <div class="grid grid-2" style="align-items: center; gap: clamp(2.5rem, 6vw, 5.625rem);">
             <div class="reveal">
               <div class="media-frame ratio-4-5">
-                <img src="assets/Victorian House Repainting/houserepainting2.png" alt="Victorian home exterior repainting completed by JOPPA Construction" loading="lazy" decoding="async" width="600" height="750">
+                <img src="assets/Victorian%20House%20Repainting/houserepainting2.png" alt="Victorian home exterior repainting completed by JOPPA Construction" loading="lazy" decoding="async" width="600" height="750">
                 <div class="media-frame__caption">
                   <div class="media-frame__caption-text">Two decades of<br>residential craft.</div>
                 </div>
@@ -330,7 +341,7 @@
     <section class="page hidden" id="about" data-page="about" aria-label="About">
       <!-- Page Hero -->
       <div class="page-hero">
-        <div class="page-hero__bg" role="img" aria-label="JOPPA Construction team on a residential renovation site" style="background-image: url('assets/Rondebosch Project/3.png');"></div>
+        <div class="page-hero__bg" role="img" aria-label="JOPPA Construction team on a residential renovation site" style="background-image: url('assets/Rondebosch%20Project/3.png');"></div>
         <div class="page-hero__texture" aria-hidden="true"></div>
         <div class="page-hero__overlay" aria-hidden="true"></div>
         <div class="page-hero__content container">
@@ -354,7 +365,7 @@
             </div>
             <div class="reveal">
               <div class="media-frame ratio-4-5">
-                <img src="assets/Rondebosch Project/Stairing1.png" alt="Rondebosch residential restoration in progress" loading="lazy" decoding="async" width="600" height="750">
+                <img src="assets/Rondebosch%20Project/Stairing1.png" alt="Rondebosch residential restoration in progress" loading="lazy" decoding="async" width="600" height="750">
               </div>
             </div>
           </div>
@@ -428,7 +439,7 @@
     <section class="page hidden" id="services" data-page="services" aria-label="Services">
       <!-- Page Hero -->
       <div class="page-hero">
-        <div class="page-hero__bg" role="img" aria-label="Finished Tokai kitchen renovation by JOPPA Construction" style="background-image: url('assets/Tokai Project/kitchen3.png');"></div>
+        <div class="page-hero__bg" role="img" aria-label="Finished Tokai kitchen renovation by JOPPA Construction" style="background-image: url('assets/Tokai%20Project/kitchen3.png');"></div>
         <div class="page-hero__texture" aria-hidden="true"></div>
         <div class="page-hero__overlay" aria-hidden="true"></div>
         <div class="page-hero__content container">
@@ -480,7 +491,7 @@
     <section class="page hidden" id="projects" data-page="projects" aria-label="Projects">
       <!-- Page Hero -->
       <div class="page-hero">
-        <div class="page-hero__bg" role="img" aria-label="Finished Rondebosch pool decking project by JOPPA Construction" style="background-image: url('assets/Rondebosch Pool Decking/veranda3.png');"></div>
+        <div class="page-hero__bg" role="img" aria-label="Finished Rondebosch pool decking project by JOPPA Construction" style="background-image: url('assets/Rondebosch%20Pool%20Decking/veranda3.png');"></div>
         <div class="page-hero__texture" aria-hidden="true"></div>
         <div class="page-hero__overlay" aria-hidden="true"></div>
         <div class="page-hero__content container">
@@ -529,7 +540,7 @@
     <section class="page hidden" id="contact" data-page="contact" aria-label="Contact">
       <!-- Page Hero -->
       <div class="page-hero">
-        <div class="page-hero__bg" role="img" aria-label="Completed Tokai residential exterior by JOPPA Construction" style="background-image: url('assets/Tokai Project/4(Complete).jpg');"></div>
+        <div class="page-hero__bg" role="img" aria-label="Completed Tokai residential exterior by JOPPA Construction" style="background-image: url('assets/Tokai%20Project/4(Complete).jpg');"></div>
         <div class="page-hero__texture" aria-hidden="true"></div>
         <div class="page-hero__overlay" aria-hidden="true"></div>
         <div class="page-hero__content container">
@@ -621,7 +632,7 @@
       <section class="section-sm" aria-label="Location map">
         <div class="container">
           <div class="map-placeholder reveal">
-            <img src="assets/Tokai Project/tokai3bedroom2.png" alt="Completed JOPPA Construction residential project in Cape Town" loading="lazy" decoding="async" width="1600" height="686">
+            <img src="assets/Tokai%20Project/tokai3bedroom2.png" alt="Completed JOPPA Construction residential project in Cape Town" loading="lazy" decoding="async" width="1600" height="686">
             <div class="map-placeholder__overlay">
               <span class="map-placeholder__label">Service Area</span>
               <span class="map-placeholder__address">18 Osborne Street, Zonnebloem, Woodstock, Cape Town</span>

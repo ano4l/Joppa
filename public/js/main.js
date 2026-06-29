@@ -8,7 +8,7 @@
   /* --------------------------------------------------------------------------
      Data
      -------------------------------------------------------------------------- */
-  const asset = (path) => 'assets/' + path;
+  const asset = (path) => 'assets/' + path.split('/').map(seg => encodeURIComponent(seg)).join('/');
 
   const services = [
     {
