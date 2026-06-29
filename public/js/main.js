@@ -301,7 +301,7 @@
     menuOpen: false,
     cat: 'All',
     formSubmitted: false,
-    expandedProject: 'tokai-home'
+    selectedProject: null
   };
 
   /* --------------------------------------------------------------------------
@@ -452,52 +452,40 @@
     bar.querySelectorAll('button[data-filter]').forEach(btn => {
       btn.addEventListener('click', () => {
         state.cat = btn.getAttribute('data-filter');
+        if (!getFilteredProjects().some(p => p.id === state.selectedProject)) {
+          state.selectedProject = null;
+        }
         renderProjectFilters();
+        renderProjectDetail();
         renderProjects();
         initReveals();
       });
     });
   }
 
+  function getFilteredProjects() {
+    return state.cat === 'All' ? projects : projects.filter(p => p.cat === state.cat);
+  }
+
   function renderProjects() {
     const grid = document.getElementById('projects-grid');
     if (!grid) return;
-    const filtered = state.cat === 'All' ? projects : projects.filter(p => p.cat === state.cat);
-    if (!filtered.some(p => p.id === state.expandedProject)) {
-      state.expandedProject = filtered[0] ? filtered[0].id : null;
-    }
+    const filtered = getFilteredProjects();
+    if (!filtered.some(p => p.id === state.selectedProject)) state.selectedProject = null;
 
     grid.innerHTML = filtered.map(p => {
       const images = p.images && p.images.length ? p.images : [p.image];
-      const expanded = p.id === state.expandedProject;
+      const selected = p.id === state.selectedProject;
       return `
-      <article class="project-showcase-card reveal ${expanded ? 'is-expanded' : ''}" role="listitem" tabindex="0" data-project-card="${escapeHtml(p.id)}" aria-expanded="${expanded}" aria-label="${escapeHtml(p.title)} project card">
+      <article class="project-showcase-card reveal ${selected ? 'is-selected' : ''}" role="listitem" tabindex="0" data-project-card="${escapeHtml(p.id)}" aria-label="Open ${escapeHtml(p.title)} project details">
         <div class="project-showcase-card__media">
           <img class="project-showcase-card__image" src="${escapeHtml(images[0])}" alt="${escapeHtml(p.title)} in ${escapeHtml(p.location)}" loading="lazy" decoding="async" width="900" height="1200">
         </div>
         <div class="project-showcase-card__shade" aria-hidden="true"></div>
-        <div class="project-showcase-card__body" id="project-${escapeHtml(p.id)}-details">
-          <div class="project-showcase-card__eyebrow">${escapeHtml(p.cat)} / ${escapeHtml(p.year)}</div>
-          <h3 class="project-showcase-card__title">${escapeHtml(p.title)}</h3>
-          <p class="project-showcase-card__text">${escapeHtml(p.desc)}</p>
-          <p class="project-showcase-card__details">${escapeHtml(p.details || p.desc)}</p>
-          <div class="project-showcase-card__chips" aria-label="${escapeHtml(p.title)} project highlights">
-            ${(p.highlights || []).map(item => `<span>${escapeHtml(item)}</span>`).join('')}
-          </div>
-          <div class="project-showcase-card__gallery" aria-label="${escapeHtml(p.title)} photos">
-            ${images.map((image, index) => `
-              <button class="project-showcase-card__thumb ${index === 0 ? 'active' : ''}" type="button" data-project-image="${escapeHtml(image)}" aria-label="Show ${escapeHtml(p.title)} photo ${index + 1}">
-                <img src="${escapeHtml(image)}" alt="${escapeHtml(p.title)} photo ${index + 1}" loading="lazy" decoding="async" width="140" height="105">
-              </button>
-            `).join('')}
-          </div>
-          <button class="project-showcase-card__toggle" type="button" data-project-toggle aria-controls="project-${escapeHtml(p.id)}-details" aria-expanded="${expanded}">
-            View project photos
-          </button>
-          <div class="project-showcase-card__meta">
-            <span>${escapeHtml(p.location)}</span>
-            <span>${images.length} photos</span>
-          </div>
+        <div class="project-showcase-card__caption">
+          <span>${escapeHtml(p.cat)} / ${escapeHtml(p.year)}</span>
+          <strong>${escapeHtml(p.title)}</strong>
+          <em>Click to view photos</em>
         </div>
       </article>
     `;
@@ -506,12 +494,60 @@
     bindProjectCards(grid);
   }
 
+  function renderProjectDetail() {
+    const panel = document.getElementById('project-detail');
+    if (!panel) return;
+
+    const project = projects.find(p => p.id === state.selectedProject);
+    if (!project) {
+      panel.classList.add('hidden');
+      panel.innerHTML = '';
+      return;
+    }
+
+    const images = project.images && project.images.length ? project.images : [project.image];
+    panel.classList.remove('hidden');
+    panel.innerHTML = `
+      <div class="project-detail__layout">
+          <div class="project-detail__media">
+          <img class="project-detail__image" src="${escapeHtml(images[0])}" alt="${escapeHtml(project.title)} selected project photo" loading="eager" fetchpriority="high" decoding="async" width="1100" height="760">
+          <div class="project-detail__thumbs" aria-label="${escapeHtml(project.title)} photo gallery">
+            ${images.map((image, index) => `
+              <button class="project-detail__thumb ${index === 0 ? 'active' : ''}" type="button" data-detail-image="${escapeHtml(image)}" aria-label="Show ${escapeHtml(project.title)} photo ${index + 1}">
+                <img src="${escapeHtml(image)}" alt="${escapeHtml(project.title)} photo ${index + 1}" loading="lazy" decoding="async" width="160" height="120">
+              </button>
+            `).join('')}
+          </div>
+        </div>
+        <div class="project-detail__content">
+          <button class="project-detail__close" type="button" data-project-detail-close>Back to projects</button>
+          <div class="project-detail__eyebrow">${escapeHtml(project.cat)} / ${escapeHtml(project.year)} / ${escapeHtml(project.location)}</div>
+          <h3 class="project-detail__title">${escapeHtml(project.title)}</h3>
+          <p class="project-detail__intro">${escapeHtml(project.desc)}</p>
+          <p class="project-detail__text">${escapeHtml(project.details || project.desc)}</p>
+          <div class="project-detail__chips" aria-label="${escapeHtml(project.title)} project highlights">
+            ${(project.highlights || []).map(item => `<span>${escapeHtml(item)}</span>`).join('')}
+          </div>
+          <div class="project-detail__meta">
+            <span>${images.length} photos</span>
+            <span>${escapeHtml(project.location)}</span>
+          </div>
+          <a href="#contact" class="btn btn-primary btn-small" data-route="contact">Request a Similar Project</a>
+        </div>
+      </div>
+    `;
+
+    bindProjectDetail(panel);
+  }
+
   function renderProjectCollections() {
     const grid = document.getElementById('project-collections-grid');
     if (!grid) return;
     grid.innerHTML = projectCollections.map(collection => {
       const hero = collection.images[0];
-      const thumbs = collection.images.slice(1);
+      const hasOverflow = collection.images.length > 5;
+      const thumbs = collection.images.slice(1, hasOverflow ? 4 : 5);
+      const remaining = hasOverflow ? collection.images.length - 4 : 0;
       return `
         <article class="project-collection reveal" role="listitem">
           <div class="project-collection__media">
@@ -520,6 +556,7 @@
               ${thumbs.map((image, index) => `
                 <img src="${escapeHtml(image)}" alt="${escapeHtml(collection.title)} supporting image ${index + 1}" loading="lazy" decoding="async" width="180" height="120">
               `).join('')}
+              ${remaining ? `<span class="project-collection__more">+${remaining}</span>` : ''}
             </div>
           </div>
           <div class="project-collection__body">
@@ -532,46 +569,57 @@
     }).join('');
   }
 
-  function setExpandedProject(card, grid) {
+  function setSelectedProject(card, grid, shouldScroll) {
     const id = card.getAttribute('data-project-card');
-    state.expandedProject = id;
+    state.selectedProject = id;
 
     grid.querySelectorAll('[data-project-card]').forEach(item => {
-      const isExpanded = item === card;
-      item.classList.toggle('is-expanded', isExpanded);
-      item.setAttribute('aria-expanded', String(isExpanded));
-      const toggle = item.querySelector('[data-project-toggle]');
-      if (toggle) toggle.setAttribute('aria-expanded', String(isExpanded));
+      item.classList.toggle('is-selected', item === card);
     });
+
+    renderProjectDetail();
+
+    if (shouldScroll) {
+      const panel = document.getElementById('project-detail');
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   function bindProjectCards(grid) {
     grid.querySelectorAll('[data-project-card]').forEach(card => {
-      card.addEventListener('mouseenter', () => setExpandedProject(card, grid));
-      card.addEventListener('focusin', () => setExpandedProject(card, grid));
       card.addEventListener('click', event => {
-        if (event.target.closest('[data-project-image]')) return;
-        setExpandedProject(card, grid);
+        setSelectedProject(card, grid, true);
       });
       card.addEventListener('keydown', event => {
-        if (event.target !== card && !event.target.closest('[data-project-toggle]')) return;
+        if (event.target !== card) return;
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
-          setExpandedProject(card, grid);
+          setSelectedProject(card, grid, true);
         }
       });
+    });
+  }
 
-      card.querySelectorAll('[data-project-image]').forEach(button => {
-        button.addEventListener('click', event => {
-          event.stopPropagation();
-          setExpandedProject(card, grid);
-          const image = button.getAttribute('data-project-image');
-          const mainImage = card.querySelector('.project-showcase-card__image');
-          if (image && mainImage) mainImage.src = image;
-          card.querySelectorAll('[data-project-image]').forEach(item => item.classList.toggle('active', item === button));
-        });
+  function bindProjectDetail(panel) {
+    panel.querySelectorAll('[data-detail-image]').forEach(button => {
+      button.addEventListener('click', () => {
+        const image = button.getAttribute('data-detail-image');
+        const mainImage = panel.querySelector('.project-detail__image');
+        if (image && mainImage) mainImage.src = image;
+        panel.querySelectorAll('[data-detail-image]').forEach(item => item.classList.toggle('active', item === button));
       });
     });
+
+    const close = panel.querySelector('[data-project-detail-close]');
+    if (close) {
+      close.addEventListener('click', () => {
+        state.selectedProject = null;
+        renderProjectDetail();
+        renderProjects();
+        const grid = document.getElementById('projects-grid');
+        if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
   }
 
   /* --------------------------------------------------------------------------
@@ -601,6 +649,7 @@
     closeMenu();
     window.scrollTo({ top: 0, behavior: 'auto' });
     document.title = getPageTitle(route);
+    primeRouteImages(route);
     initReveals();
   }
 
@@ -657,45 +706,74 @@
   }
 
   /* --------------------------------------------------------------------------
+     Image warmup
+     -------------------------------------------------------------------------- */
+  function preloadImages(urls) {
+    urls.filter(Boolean).forEach(src => {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = src;
+    });
+  }
+
+  function primeRouteImages(route) {
+    const routeImages = {
+      home: [
+        asset('Tokai Project/tokai3bedroom1.png'),
+        asset('Victorian House Repainting/houserepainting2.png')
+      ],
+      about: [
+        asset('Rondebosch Project/3.png'),
+        asset('Rondebosch Project/Stairing1.png')
+      ],
+      services: [
+        asset('Tokai Project/kitchen3.png'),
+        asset('bathroom-renovation-service.png')
+      ],
+      projects: [
+        asset('Rondebosch Pool Decking/veranda3.png'),
+        ...projects.map(project => project.image)
+      ],
+      contact: [
+        asset('Tokai Project/4(Complete).jpg'),
+        asset('Tokai Project/tokai3bedroom2.png')
+      ]
+    };
+
+    preloadImages(routeImages[route] || []);
+  }
+
+  /* --------------------------------------------------------------------------
      Reveal animations
      -------------------------------------------------------------------------- */
   let revealObserver = null;
 
   function initReveals() {
     if (revealObserver) revealObserver.disconnect();
+    document.querySelectorAll('.reveal').forEach(el => {
+      el.classList.add('visible');
+      el.style.transitionDelay = '0ms';
+    });
+
     if (typeof IntersectionObserver === 'undefined') {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      document.querySelectorAll('[data-count]').forEach(el => animateCount(el));
       return;
     }
 
-    setTimeout(() => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            const countEl = entry.target.querySelector('[data-count]') || (entry.target.hasAttribute('data-count') ? entry.target : null);
-            if (countEl && !countEl._counted) {
-              countEl._counted = true;
-              animateCount(countEl);
-            }
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-
-      revealObserver = observer;
-      let index = 0;
-      document.querySelectorAll('.reveal').forEach(el => {
-        el.classList.remove('visible');
-        el.style.transitionDelay = (Math.min(index, 5) * 80) + 'ms';
-        index++;
-        observer.observe(el);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const countEl = entry.target;
+        if (!countEl._counted) {
+          countEl._counted = true;
+          animateCount(countEl);
+        }
+        observer.unobserve(countEl);
       });
+    }, { threshold: 0.2, rootMargin: '120px 0px' });
 
-      document.querySelectorAll('[data-count]').forEach(c => {
-        if (!c.closest('.reveal')) observer.observe(c);
-      });
-    }, 60);
+    revealObserver = observer;
+    document.querySelectorAll('[data-count]').forEach(c => observer.observe(c));
   }
 
   function animateCount(el) {
@@ -707,7 +785,7 @@
     const suffix = match[3];
     if (target > 1000) return;
 
-    const duration = 1300;
+    const duration = 700;
     const start = performance.now();
     function tick(now) {
       const p = Math.min((now - start) / duration, 1);
@@ -788,6 +866,7 @@
     renderServicesFull();
     renderValues();
     renderProjectFilters();
+    renderProjectDetail();
     renderProjects();
     renderProjectCollections();
     initForm();

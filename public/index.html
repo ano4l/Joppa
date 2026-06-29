@@ -36,9 +36,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Arvo:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/joppa-logo.png" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/Tokai%20Project/tokai3bedroom1.png" fetchpriority="high">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/main.css?v=20260629-responsive">
+  <link rel="stylesheet" href="css/main.css?v=20260630-fast-motion">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/joppa-logo.png">
@@ -134,7 +136,7 @@
     <!-- Main header bar -->
     <div class="container header__main">
       <a href="#home" class="header__logo" aria-label="JOPPA Construction — Home">
-        <img src="assets/joppa-logo.png" alt="JOPPA Construction logo" width="180" height="48">
+        <img src="assets/joppa-logo.png" alt="JOPPA Construction logo" width="180" height="48" loading="eager" fetchpriority="high" decoding="async">
       </a>
 
       <nav class="nav" aria-label="Main navigation">
@@ -511,6 +513,10 @@
             <!-- Injected by JS -->
           </div>
 
+          <section class="project-detail hidden" id="project-detail" aria-live="polite" aria-label="Selected project details">
+            <!-- Injected by JS -->
+          </section>
+
           <div class="project-gallery reveal-group" id="projects-grid" role="list">
             <!-- Injected by JS -->
           </div>
@@ -700,6 +706,6 @@
     WhatsApp Us
   </a>
 
-  <script src="js/main.js?v=20260629-responsive"></script>
+  <script src="js/main.js?v=20260630-fast-motion"></script>
 </body>
 </html>
