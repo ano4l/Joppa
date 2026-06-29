@@ -1,92 +1,47 @@
 # JOPPA Construction Website
 
-A modern, accessible, performance-first static website for JOPPA Construction — Cape Town residential builders and renovation specialists.
+A premium static website for JOPPA Construction, a Cape Town residential builder and renovation specialist.
 
-## Project structure
+## Project Structure
 
-```
+```text
 .
-├── archive/
-│   └── original/          # Original DC-runtime source files (kept for reference)
-├── public/                # Production-ready static site
-│   ├── index.html         # Main entry point (SPA with hash routing)
-│   ├── css/
-│   │   └── main.css       # Design system, components, and utilities
-│   ├── js/
-│   │   └── main.js        # Router, dynamic rendering, reveals, form, filters
-│   └── assets/
-│       └── joppa-logo.png # Brand logo
-└── README.md              # This file
+|-- archive/
+|   `-- original/          # Original source files kept for reference
+|-- public/                # Production-ready static site
+|   |-- index.html         # Main entry point with hash routing
+|   |-- css/
+|   |   `-- main.css       # Design system, layout, and components
+|   |-- js/
+|   |   `-- main.js        # Router, rendering, filters, reveals, and form behavior
+|   `-- assets/
+|       |-- joppa-logo.png # Brand logo
+|       `-- */             # Supplied JOPPA project image folders
+`-- README.md
 ```
 
-## Quick start
+## Quick Start
 
-Open `public/index.html` in a browser, or serve the `public` folder with any static server:
+Open `public/index.html` directly in a browser, or serve the `public` folder:
 
 ```bash
-# Using Python
 python -m http.server 8000 --directory public
-
-# Using Node.js (npx serve)
-npx serve public
-
-# Using PHP
-php -S localhost:8000 -t public
 ```
 
 Then visit `http://localhost:8000`.
 
-## Architecture
+## Notes
 
-- **Static SPA**: The site uses hash-based routing (`#home`, `#about`, `#services`, `#projects`, `#contact`) so it works without a backend.
-- **No build step**: Plain HTML, CSS, and vanilla JavaScript. Easy to edit, host, and deploy.
-- **External CSS/JS**: Styles and scripts are separated from markup for maintainability and caching.
-- **Design system**: CSS custom properties handle colours, typography, spacing, and effects consistently.
+- The site is a plain HTML/CSS/JavaScript SPA with hash routes: `#home`, `#about`, `#services`, `#projects`, and `#contact`.
+- Project, service, hero, and gallery imagery uses the supplied JOPPA asset folders.
+- The Projects page includes category filters, an expanding hover gallery, and supporting folder-level image collections.
+- The contact form prepares a WhatsApp message; there is no backend dependency.
 
-## Design & UX improvements
+## Before Going Live
 
-- **Real photography**: Hero, project, and service images use high-quality construction-related photos from Unsplash (lazy-loaded with `loading="lazy"`). Replace these with your own project photos before going live.
-- **Trust signals**: Added "Licensed & Insured", "Cape Town Local", and "Free Quotes" badges on the About teaser.
-- **Mobile-first navigation**: Sticky header with a full-screen mobile menu and hamburger animation.
-- **Scroll reveal animations**: Elements fade in as they enter the viewport, with `prefers-reduced-motion` support.
-- **Animated stat counters**: Numbers count up when visible.
-- **Project filtering**: Filter the portfolio by category (Renovation, Restoration, Bathroom, etc.).
-- **WhatsApp integration**: Floating WhatsApp button and form submission prepopulates a WhatsApp message.
-- **Improved forms**: Labels, autocomplete attributes, focus states, validation, and success state.
-- **Service detail pages**: Each service now has a dedicated image, description, and bullet points.
+1. Review project labels and descriptions in `public/js/main.js` as more project details become available.
+2. Replace the Open Graph and Twitter image URLs with a branded 1200x630 image if needed.
+3. Update the canonical URL and structured data URL when the production domain is final.
+4. Add analytics or tag management only if required.
 
-## Accessibility
-
-- Semantic HTML (`header`, `nav`, `main`, `section`, `article`, `footer`, `h1`–`h3` hierarchy).
-- ARIA labels and roles for navigation, mobile menu, and interactive elements.
-- Skip-to-content link.
-- Visible `focus-visible` indicators.
-- Reduced-motion support (`prefers-reduced-motion`).
-- High-contrast support (`prefers-contrast`).
-- Touch targets sized at least 48px for buttons and links.
-
-## SEO
-
-- Descriptive page titles and meta descriptions.
-- Canonical URL, Open Graph, and Twitter card tags.
-- Structured data (`LocalBusiness` and `Service`) for Google rich results.
-- NAP (Name, Address, Phone) consistency throughout the site.
-- Semantic heading hierarchy and alt text on images.
-
-## Before going live
-
-1. **Replace Unsplash images**: Download and host your own project photos in `public/assets/` and update the `src`/`style` attributes in `index.html` and `main.js`.
-2. **Add a real Open Graph image**: Replace the `og:image` and `twitter:image` references with a branded 1200×630px image saved as `public/assets/og-image.jpg`.
-3. **Add a real favicon**: Replace `public/assets/joppa-logo.png` with proper `favicon.ico` / SVG / PNG sizes if needed.
-4. **Google Maps**: Replace the map placeholder image with an embedded Google Map or a static map image of 18 Osborne Street, Zonnebloem, Woodstock.
-5. **Domain**: Update the canonical URL and structured data `url` from `https://joppaconstruction.com/` to your actual domain.
-6. **Analytics**: Add Google Analytics, Google Tag Manager, or a privacy-friendly analytics script if desired.
-7. **Hosting**: Upload the contents of `public/` to your host (Netlify, Vercel, Cloudflare Pages, cPanel, etc.).
-
-## Browser support
-
-Works in all modern browsers (Chrome, Edge, Firefox, Safari). IE11 is not supported because the site uses CSS custom properties and modern DOM APIs.
-
-## License
-
-Copyright &copy; 2026 JOPPA Construction. All rights reserved.
+Copyright (c) 2026 JOPPA Construction. All rights reserved.
