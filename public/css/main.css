@@ -1095,11 +1095,12 @@ h1, h2, h3, h4, h5, h6, p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(1.06);
   transition: transform var(--transition-slow);
 }
 
 .card:hover .card__media img {
-  transform: scale(1.05);
+  transform: scale(1.12);
 }
 
 .card__media-tag {
@@ -1245,11 +1246,12 @@ h1, h2, h3, h4, h5, h6, p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(1.06);
   transition: transform var(--transition-slow);
 }
 
 .service-card-full:hover .service-card-full__media img {
-  transform: scale(1.05);
+  transform: scale(1.12);
 }
 
 .service-card-full__num {
@@ -2047,7 +2049,7 @@ h1, h2, h3, h4, h5, h6, p {
   height: 100%;
   object-fit: cover;
   filter: grayscale(0.25) brightness(0.74) contrast(1.04);
-  transform: scale(1.01);
+  transform: scale(1.06);
   transition: filter 0.7s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -2056,7 +2058,7 @@ h1, h2, h3, h4, h5, h6, p {
 .project-showcase-card:focus-within .project-showcase-card__media img,
 .project-showcase-card.is-selected .project-showcase-card__media img {
   filter: none;
-  transform: scale(1.06);
+  transform: scale(1.12);
 }
 
 .project-showcase-card__shade {
@@ -2128,6 +2130,7 @@ h1, h2, h3, h4, h5, h6, p {
   grid-template-rows: minmax(0, 1fr) auto;
   min-width: 0;
   background-color: var(--color-midnight);
+  overflow: hidden;
 }
 
 .project-detail__image {
@@ -2135,6 +2138,9 @@ h1, h2, h3, h4, h5, h6, p {
   height: 100%;
   min-height: 360px;
   object-fit: cover;
+  transform: scale(1.06);
+  transform-origin: center;
+  transition: transform var(--transition-base);
 }
 
 .project-detail__thumbs {
@@ -2291,6 +2297,7 @@ h1, h2, h3, h4, h5, h6, p {
   min-height: 0;
   height: 100%;
   background-color: var(--color-sand);
+  overflow: hidden;
 }
 
 .project-collection__hero,
@@ -2302,6 +2309,13 @@ h1, h2, h3, h4, h5, h6, p {
 
 .project-collection__hero {
   min-height: 0;
+  transform: scale(1.06);
+  transform-origin: center;
+  transition: transform var(--transition-slow);
+}
+
+.project-collection:hover .project-collection__hero {
+  transform: scale(1.12);
 }
 
 .project-collection__thumbs {

@@ -225,6 +225,29 @@
         asset('Tokai Project/landscaping2.png'),
         asset('Tokai Project/landscapin1.png')
       ]
+    },
+    {
+      id: 'additional-craft',
+      cat: 'Builds',
+      title: 'Additional Craftsmanship',
+      homeTitle: 'Additional Construction Works',
+      location: 'Cape Town',
+      year: '2024',
+      image: asset('Additional Gallery Images/1748f3ac-cd59-4fe3-bd84-c566aa93f69d.jpg'),
+      desc: 'An extra showcase of on-site masonry, plastering, tiling and structural works across Cape Town.',
+      details: 'A collection of supplementary photos showing our builders at work and the fine masonry, bricklaying, tiling, and plastering details that complete our premium projects.',
+      highlights: ['Brickwork & Masonry', 'On-site plastering', 'Tiling & details', 'Tidy workspaces'],
+      images: [
+        asset('Additional Gallery Images/1748f3ac-cd59-4fe3-bd84-c566aa93f69d.jpg'),
+        asset('Additional Gallery Images/3218db06-fb80-4f40-8d41-b11eb1999d09.jpg'),
+        asset('Additional Gallery Images/46baf116-b815-46ac-afb7-93d062adf3e7.jpg'),
+        asset('Additional Gallery Images/4c226db7-3935-409e-a447-e870659db7da.jpg'),
+        asset('Additional Gallery Images/52fde154-c6f1-4b09-a16b-34ef273979bf.jpg'),
+        asset('Additional Gallery Images/681aed78-3610-4693-bf7c-39576d029833.jpg'),
+        asset('Additional Gallery Images/b9419fc9-666b-40ae-8fa1-d0265c61f767.jpg'),
+        asset('Additional Gallery Images/b9bb5dd5-95fb-4200-ae69-bae85e53c40f.jpg'),
+        asset('Additional Gallery Images/db8b649e-bd2b-46e0-815e-1a82310a538e.jpg')
+      ]
     }
   ];
 
@@ -252,6 +275,12 @@
       label: 'Heritage painting',
       desc: 'Exterior and interior repainting work on a character home with delicate trim and period surfaces.',
       images: projects[1].images
+    },
+    {
+      title: 'Additional Works',
+      label: 'Craftsmanship details',
+      desc: 'Extra on-site masonry, plastering, tiling and structural building details across Cape Town.',
+      images: projects[6].images
     }
   ];
 
